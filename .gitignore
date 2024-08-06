@@ -7,7 +7,7 @@ build/
 
 ### setting ###
 src/main/resources/application-dev.yml
-src/test/resources/application.yml
+src/test/resources/application-test.yml
 
 ### .sql ###
 src/test/resources/sql/
