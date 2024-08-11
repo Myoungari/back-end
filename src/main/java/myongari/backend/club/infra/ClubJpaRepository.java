@@ -21,4 +21,8 @@ public interface ClubJpaRepository extends JpaRepository<Club, Long> {
             + "JOIN cl.category c "
             + "WHERE c.name = :categoryName")
     List<ClubName> getClubNames(@Param("categoryName") String categoryName);
+
+    int countAllBy();
+
+    Club getClubById(Long id);
 }

@@ -3,6 +3,8 @@ package myongari.backend.club.infra;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import myongari.backend.club.application.port.ClubRepository;
+import myongari.backend.club.entity.Club;
+import myongari.backend.club.presentation.dto.ClubCount;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import org.junit.jupiter.api.Test;
@@ -47,5 +49,26 @@ public class ClubRepositoryTest {
 
         // then
         assertThat(clubNames.get(0).getClubName()).isEqualTo("표현의 자유");
+    }
+
+    @Test
+    void 등록된_모든_동아리_갯수를_가져온다() {
+        // when
+        ClubCount clubCount = clubRepository.getClubCount();
+
+        // then
+        assertThat(clubCount.getCount()).isNotNull();
+    }
+
+    @Test
+    void 동아리_id별_상세_정보를_가져온다() {
+        // give
+        Long id = 1L;
+
+        // when
+        Club club = clubRepository.getClubById(id);
+
+        // then
+        assertThat(club).isNotNull();
     }
 }
