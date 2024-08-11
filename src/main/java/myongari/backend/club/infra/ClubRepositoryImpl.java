@@ -7,6 +7,8 @@ import myongari.backend.club.entity.Club;
 import myongari.backend.club.presentation.dto.ClubCount;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,8 +18,8 @@ public class ClubRepositoryImpl implements ClubRepository {
     private final ClubJpaRepository clubJpaRepository;
 
     @Override
-    public List<ClubSimple> getClubSimpleAll() {
-        return clubJpaRepository.getClubSimpleAll();
+    public Page<ClubSimple> getClubSimpleAll(Pageable pageable) {
+        return clubJpaRepository.getClubSimpleAll(pageable);
     }
 
     @Override

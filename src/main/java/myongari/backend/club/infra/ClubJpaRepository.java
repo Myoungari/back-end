@@ -4,6 +4,8 @@ import java.util.List;
 import myongari.backend.club.entity.Club;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +16,7 @@ public interface ClubJpaRepository extends JpaRepository<Club, Long> {
 
     @Query("SELECT new myongari.backend.club.presentation.dto.ClubSimple(c.name, c.imageLink, c.recruitmentStatus, c.introduce) " +
             "FROM Club c")
-    List<ClubSimple> getClubSimpleAll();
+    Page<ClubSimple> getClubSimpleAll(Pageable pageable);
 
     @Query("SELECT new myongari.backend.club.presentation.dto.ClubName(cl.name) "
             + "FROM Club cl "

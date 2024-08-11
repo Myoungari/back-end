@@ -6,8 +6,13 @@ import myongari.backend.club.presentation.dto.ClubCount;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -18,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 public class ClubRepositoryTest {
 
+    private final Logger logger = LoggerFactory.getLogger(ClubRepositoryTest.class);
     private ClubRepository clubRepository;
 
     @Autowired
@@ -26,12 +32,15 @@ public class ClubRepositoryTest {
     }
 
     @Test
-    void 동아리_정보들을_가져온다() {
+    void 모든_동아리_정보들을_페이징_조회한다() {
+        // given
+        PageRequest pageRequest = PageRequest.of(0, 2);
+
         // when
-        List<ClubSimple> clubSimpleAll = clubRepository.getClubSimpleAll();
+        Page<ClubSimple> clubSimpleAll = clubRepository.getClubSimpleAll(pageRequest);
 
         // then
-        assertThat(clubSimpleAll.get(0).getName()).isEqualTo("표현의 자유");
+        assertThat(clubSimpleAll.getContent().get(0).getName()).isEqualTo("표현의 자유");
     }
 
     @Test

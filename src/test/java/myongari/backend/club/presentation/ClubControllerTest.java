@@ -1,14 +1,5 @@
 package myongari.backend.club.presentation;
 
-import static myongari.backend.club.fixture.ClubFixture.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import myongari.backend.club.application.ClubService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +8,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static myongari.backend.club.fixture.ClubFixture.모든_동아리_정보_1_페이지;
+import static myongari.backend.club.fixture.ClubFixture.특정_카테고리에_속한_동아리_이름_생성;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 @ActiveProfiles("test")
@@ -28,15 +27,21 @@ public class ClubControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void 모든_동아리_정보를_출력한다() throws Exception {
-        when(clubService.getClubSimpleAll()).thenReturn(모든_동아리_정보_생성());
+    void 모든_동아리_정보를_페이지_별로_출력한다() throws Exception {
+        int page = 1;
+        int size = 3;
 
-        mockMvc.perform(get("/clubs"))
+        when(clubService.getClubSimpleAll(page, size)).thenReturn(모든_동아리_정보_1_페이지());
+
+        mockMvc.perform(get("/clubs")
+                        .param("page", String.valueOf(page))
+                        .param("size", String.valueOf(size)))
                 .andExpectAll(
                         status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
                         jsonPath("$.code").value(200),
-                        jsonPath("$.data[0].name").value("표현의 자유")
+                        jsonPath("$.data.totalElements").value(3),
+                        jsonPath("$.data.currentPage").value(1)
                 )
                 .andDo(print());
     }
