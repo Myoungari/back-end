@@ -6,6 +6,7 @@ import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import myongari.backend.club.presentation.dto.ClubSimplePage;
 
+@SuppressWarnings("NonAsciiCharacters")
 public class ClubFixture {
 
     public static List<ClubSimple> 모든_동아리_정보_생성() {

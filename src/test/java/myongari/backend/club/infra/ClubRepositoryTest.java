@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @ActiveProfiles("test")
+@SuppressWarnings("NonAsciiCharacters")
 public class ClubRepositoryTest {
 
     private final Logger logger = LoggerFactory.getLogger(ClubRepositoryTest.class);

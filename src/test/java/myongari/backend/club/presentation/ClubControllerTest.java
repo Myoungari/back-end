@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 @ActiveProfiles("test")
+@SuppressWarnings("NonAsciiCharacters")
 public class ClubControllerTest {
 
     @MockBean
