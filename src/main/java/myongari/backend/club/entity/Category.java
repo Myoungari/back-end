@@ -1,4 +1,4 @@
-package myongari.backend.category.entity;
+package myongari.backend.club.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,6 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import myongari.backend.club.entity.Club;
 
 @Entity
 @Table(name = "categories")

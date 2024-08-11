@@ -1,4 +1,4 @@
-package myongari.backend.president.entity;
+package myongari.backend.club.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

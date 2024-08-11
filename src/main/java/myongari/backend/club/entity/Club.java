@@ -14,8 +14,6 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import myongari.backend.category.entity.Category;
-import myongari.backend.president.entity.President;
 
 @Entity
 @Table(name = "clubs")
