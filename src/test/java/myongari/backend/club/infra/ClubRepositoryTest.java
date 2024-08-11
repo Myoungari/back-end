@@ -1,7 +1,5 @@
 package myongari.backend.club.infra;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.entity.Club;
 import myongari.backend.club.presentation.dto.ClubCount;
@@ -19,9 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @ActiveProfiles("test")
 public class ClubRepositoryTest {
-
-    @PersistenceContext
-    private EntityManager em;
 
     private ClubRepository clubRepository;
 
