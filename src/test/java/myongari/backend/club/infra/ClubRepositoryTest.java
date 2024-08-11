@@ -6,13 +6,10 @@ import myongari.backend.club.presentation.dto.ClubCount;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -24,8 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SuppressWarnings("NonAsciiCharacters")
 public class ClubRepositoryTest {
 
-    private final Logger logger = LoggerFactory.getLogger(ClubRepositoryTest.class);
-    private ClubRepository clubRepository;
+    private final ClubRepository clubRepository;
 
     @Autowired
     public ClubRepositoryTest(ClubJpaRepository clubJpaRepository) {
