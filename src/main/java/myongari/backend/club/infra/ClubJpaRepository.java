@@ -1,6 +1,5 @@
 package myongari.backend.club.infra;
 
-import java.util.List;
 import myongari.backend.club.entity.Club;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
@@ -11,10 +10,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ClubJpaRepository extends JpaRepository<Club, Long> {
 
-    @Query("SELECT new myongari.backend.club.presentation.dto.ClubSimple(c.name, c.imageLink, c.recruitmentStatus, c.introduce) " +
+    @Query("SELECT new myongari.backend.club.presentation.dto.ClubSimple(c.name, c.imageLink, c.apply.recruitmentStatus, c.introduce) " +
             "FROM Club c")
     Page<ClubSimple> getClubSimpleAll(Pageable pageable);
 
@@ -25,6 +26,4 @@ public interface ClubJpaRepository extends JpaRepository<Club, Long> {
     List<ClubName> getClubNames(@Param("categoryName") String categoryName);
 
     int countAllBy();
-
-    Club getClubById(Long id);
 }

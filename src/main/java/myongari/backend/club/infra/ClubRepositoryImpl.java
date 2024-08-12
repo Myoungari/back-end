@@ -1,6 +1,5 @@
 package myongari.backend.club.infra;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.entity.Club;
@@ -10,6 +9,8 @@ import myongari.backend.club.presentation.dto.ClubSimple;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -35,6 +36,6 @@ public class ClubRepositoryImpl implements ClubRepository {
 
     @Override
     public Club getClubById(Long id) {
-        return clubJpaRepository.getClubById(id);
+        return clubJpaRepository.findById(id).orElseThrow();
     }
 }
