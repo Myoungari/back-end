@@ -1,10 +1,10 @@
 package myongari.backend.club.fixture;
 
-import myongari.backend.club.entity.Apply;
-import myongari.backend.club.entity.Category;
-import myongari.backend.club.entity.Club;
-import myongari.backend.club.entity.President;
-import myongari.backend.club.entity.State;
+import myongari.backend.club.domain.Apply;
+import myongari.backend.club.domain.Category;
+import myongari.backend.club.domain.Club;
+import myongari.backend.club.domain.President;
+import myongari.backend.club.domain.State;
 
 import java.util.List;
 

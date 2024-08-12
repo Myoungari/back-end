@@ -1,6 +1,6 @@
 package myongari.backend.club.infra;
 
-import myongari.backend.club.entity.Club;
+import myongari.backend.club.domain.Club;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import org.springframework.data.domain.Page;

@@ -2,7 +2,7 @@ package myongari.backend.club.presentation;
 
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.ClubService;
-import myongari.backend.club.entity.Club;
+import myongari.backend.club.domain.Club;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimplePage;
 import myongari.backend.common.response.Success;

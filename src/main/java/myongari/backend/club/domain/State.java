@@ -1,4 +1,4 @@
-package myongari.backend.club.entity;
+package myongari.backend.club.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
