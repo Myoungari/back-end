@@ -1,7 +1,6 @@
 package myongari.backend.club.infra;
 
 import myongari.backend.club.application.port.ClubRepository;
-import myongari.backend.club.entity.Category;
 import myongari.backend.club.entity.Club;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
@@ -15,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static myongari.backend.club.fixture.ClubFixture.*;
+import static myongari.backend.club.fixture.ClubFixture.모든_동아리_정보_생성;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -23,9 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @SuppressWarnings("NonAsciiCharacters")
 public class ClubRepositoryTest {
-
-    @Autowired
-    private CategoryJpaRepository categoryJpaRepository;
 
     @Autowired
     private ClubJpaRepository clubJpaRepository;
@@ -36,12 +32,7 @@ public class ClubRepositoryTest {
     @Test
     void 모든_동아리_정보들을_페이징_조회한다() {
         // given
-        Category 카테고리_1_정보 = 카테고리_1_정보_생성();
-        Category 카테고리_2_정보 = 카테고리_2_정보_생성();
-        categoryJpaRepository.save(카테고리_1_정보);
-        categoryJpaRepository.save(카테고리_2_정보);
-
-        List<Club> 모든_동아리_정보 = 모든_동아리_정보_생성(카테고리_1_정보, 카테고리_2_정보);
+        List<Club> 모든_동아리_정보 = 모든_동아리_정보_생성();
         clubJpaRepository.saveAll(모든_동아리_정보);
 
         int page = 0;
@@ -58,12 +49,7 @@ public class ClubRepositoryTest {
     @Test
     void 카테고리별_동아리_이름_내역을_가져온다() {
         // given
-        Category 카테고리_1_정보 = 카테고리_1_정보_생성();
-        Category 카테고리_2_정보 = 카테고리_2_정보_생성();
-        categoryJpaRepository.save(카테고리_1_정보);
-        categoryJpaRepository.save(카테고리_2_정보);
-
-        List<Club> 모든_동아리_정보 = 모든_동아리_정보_생성(카테고리_1_정보, 카테고리_2_정보);
+        List<Club> 모든_동아리_정보 = 모든_동아리_정보_생성();
         clubJpaRepository.saveAll(모든_동아리_정보);
 
         String categoryName = "카테고리1";
@@ -74,5 +60,4 @@ public class ClubRepositoryTest {
         // then
         assertThat(clubNames.get(0).getClubName()).isEqualTo("동아리1");
     }
-
 }

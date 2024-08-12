@@ -1,5 +1,6 @@
 package myongari.backend.club.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -38,7 +39,7 @@ public class Club {
     @Embedded
     private President president;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "categories_id")
     private Category category;
 
