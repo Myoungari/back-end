@@ -3,7 +3,6 @@ package myongari.backend.club.infra;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.entity.Club;
-import myongari.backend.club.presentation.dto.ClubCount;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import org.springframework.data.domain.Page;
@@ -26,12 +25,6 @@ public class ClubRepositoryImpl implements ClubRepository {
     @Override
     public List<ClubName> getClubNamesByCategory(String categoryName) {
         return clubJpaRepository.getClubNames(categoryName);
-    }
-
-    @Override
-    public ClubCount getClubCount() {
-        int count = clubJpaRepository.countAllBy();
-        return new ClubCount(count);
     }
 
     @Override

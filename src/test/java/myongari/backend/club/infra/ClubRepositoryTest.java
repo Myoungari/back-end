@@ -3,7 +3,6 @@ package myongari.backend.club.infra;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.entity.Category;
 import myongari.backend.club.entity.Club;
-import myongari.backend.club.presentation.dto.ClubCount;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import org.junit.jupiter.api.Test;
@@ -74,24 +73,6 @@ public class ClubRepositoryTest {
 
         // then
         assertThat(clubNames.get(0).getClubName()).isEqualTo("동아리1");
-    }
-
-    @Test
-    void 등록된_모든_동아리_갯수를_가져온다() {
-        // given
-        Category 카테고리_1_정보 = 카테고리_1_정보_생성();
-        Category 카테고리_2_정보 = 카테고리_2_정보_생성();
-        categoryJpaRepository.save(카테고리_1_정보);
-        categoryJpaRepository.save(카테고리_2_정보);
-
-        List<Club> 모든_동아리_정보 = 모든_동아리_정보_생성(카테고리_1_정보, 카테고리_2_정보);
-        clubJpaRepository.saveAll(모든_동아리_정보);
-
-        // when
-        ClubCount clubCount = clubRepository.getClubCount();
-
-        // then
-        assertThat(clubCount.getCount()).isEqualTo(2);
     }
 
 }

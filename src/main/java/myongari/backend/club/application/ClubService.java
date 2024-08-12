@@ -2,7 +2,7 @@ package myongari.backend.club.application;
 
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
-import myongari.backend.club.presentation.dto.ClubCount;
+import myongari.backend.club.entity.Club;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import myongari.backend.club.presentation.dto.ClubSimplePage;
@@ -34,7 +34,7 @@ public class ClubService {
     }
 
     @Transactional(readOnly = true)
-    public ClubCount getClubCount() {
-        return clubRepository.getClubCount();
+    public Club getClubById(long id) {
+        return clubRepository.getClubById(id);
     }
 }
