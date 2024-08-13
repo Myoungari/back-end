@@ -14,7 +14,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     private final CategoryJpaRepository categoryJpaRepository;
 
     @Override
-    public Optional<Category> getCategoryByName(String name) {
+    public Optional<Category> findCategoryByName(String name) {
         return categoryJpaRepository.findByName(name);
     }
 

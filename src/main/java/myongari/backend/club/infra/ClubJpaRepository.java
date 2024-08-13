@@ -17,12 +17,12 @@ public interface ClubJpaRepository extends JpaRepository<Club, Long> {
 
     @Query("SELECT new myongari.backend.club.presentation.dto.ClubSimple(c.name, c.imageLink, c.apply.recruitmentStatus, c.introduce) " +
             "FROM Club c")
-    Page<ClubSimple> getClubSimpleAll(Pageable pageable);
+    Page<ClubSimple> findClubSimpleAll(Pageable pageable);
 
     @Query("SELECT new myongari.backend.club.presentation.dto.ClubName(cl.name) "
             + "FROM Club cl "
             + "JOIN cl.category c "
             + "WHERE c.name = :categoryName")
-    List<ClubName> getClubNames(@Param("categoryName") String categoryName);
+    List<ClubName> findClubNamesByCategoryName(@Param("categoryName") String categoryName);
 
 }

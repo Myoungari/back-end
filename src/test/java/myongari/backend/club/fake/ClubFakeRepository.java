@@ -20,7 +20,7 @@ public class ClubFakeRepository implements ClubRepository {
     private static AtomicInteger id = new AtomicInteger(1);
 
     @Override
-    public Page<ClubSimple> getClubSimpleAll(Pageable pageable) {
+    public Page<ClubSimple> findClubSimpleAll(Pageable pageable) {
         List<ClubSimple> clubSimples = clubs.stream()
                 .map(club -> new ClubSimple(
                         club.getName(),
@@ -33,7 +33,7 @@ public class ClubFakeRepository implements ClubRepository {
     }
 
     @Override
-    public List<ClubName> getClubNamesByCategory(String categoryName) {
+    public List<ClubName> findClubNamesByCategoryName(String categoryName) {
         List<ClubName> clubNames = clubs.stream()
                 .filter(club -> club.getCategory().getName().equals(categoryName))
                 .map(club -> new ClubName(club.getName()))
@@ -43,7 +43,7 @@ public class ClubFakeRepository implements ClubRepository {
     }
 
     @Override
-    public Optional<Club> getClubById(Long id) {
+    public Optional<Club> findClubById(Long id) {
         return clubs.stream()
                 .filter(each -> each.getId() == id)
                 .findFirst();

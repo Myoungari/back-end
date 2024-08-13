@@ -40,7 +40,7 @@ public class ClubRepositoryTest {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         // when
-        Page<ClubSimple> clubSimpleAll = clubRepository.getClubSimpleAll(pageRequest);
+        Page<ClubSimple> clubSimpleAll = clubRepository.findClubSimpleAll(pageRequest);
 
         // then
         assertThat(clubSimpleAll.getNumber()).isEqualTo(page);
@@ -55,7 +55,7 @@ public class ClubRepositoryTest {
         String categoryName = "카테고리1";
 
         // when
-        List<ClubName> clubNames = clubRepository.getClubNamesByCategory(categoryName);
+        List<ClubName> clubNames = clubRepository.findClubNamesByCategoryName(categoryName);
 
         // then
         assertThat(clubNames.get(0).getClubName()).isEqualTo("동아리1");

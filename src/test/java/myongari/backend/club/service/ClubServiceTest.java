@@ -36,7 +36,7 @@ public class ClubServiceTest {
         String categoryName = "카테고리2";
 
         // when & then
-        Assertions.assertThatThrownBy(() -> clubService.getClubNamesByCategory(categoryName))
+        Assertions.assertThatThrownBy(() -> clubService.findClubNamesByCategoryName(categoryName))
                 .isInstanceOf(NoSuchElementException.class);
     }
 

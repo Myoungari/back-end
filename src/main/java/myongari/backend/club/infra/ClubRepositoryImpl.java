@@ -19,17 +19,17 @@ public class ClubRepositoryImpl implements ClubRepository {
     private final ClubJpaRepository clubJpaRepository;
 
     @Override
-    public Page<ClubSimple> getClubSimpleAll(Pageable pageable) {
-        return clubJpaRepository.getClubSimpleAll(pageable);
+    public Page<ClubSimple> findClubSimpleAll(Pageable pageable) {
+        return clubJpaRepository.findClubSimpleAll(pageable);
     }
 
     @Override
-    public List<ClubName> getClubNamesByCategory(String categoryName) {
-        return clubJpaRepository.getClubNames(categoryName);
+    public List<ClubName> findClubNamesByCategoryName(String categoryName) {
+        return clubJpaRepository.findClubNamesByCategoryName(categoryName);
     }
 
     @Override
-    public Optional<Club> getClubById(Long id) {
+    public Optional<Club> findClubById(Long id) {
         return clubJpaRepository.findById(id);
     }
 }

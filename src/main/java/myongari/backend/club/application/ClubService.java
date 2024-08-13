@@ -23,23 +23,23 @@ public class ClubService {
     private final CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public ClubSimplePage getClubSimpleAll(Pageable pageable) {
-        Page<ClubSimple> clubSimpleAll = clubRepository.getClubSimpleAll(pageable);
+    public ClubSimplePage findClubSimpleAll(Pageable pageable) {
+        Page<ClubSimple> clubSimpleAll = clubRepository.findClubSimpleAll(pageable);
 
         return ClubSimplePage.from(clubSimpleAll);
     }
 
     @Transactional(readOnly = true)
-    public List<ClubName> getClubNamesByCategory(String categoryName) {
-        categoryRepository.getCategoryByName(categoryName)
+    public List<ClubName> findClubNamesByCategoryName(String categoryName) {
+        categoryRepository.findCategoryByName(categoryName)
                 .orElseThrow(() -> new NoSuchElementException("카테고리를 찾지 못했습니다."));
 
-        return clubRepository.getClubNamesByCategory(categoryName);
+        return clubRepository.findClubNamesByCategoryName(categoryName);
     }
 
     @Transactional(readOnly = true)
-    public Club getClubById(long id) {
-        return clubRepository.getClubById(id)
+    public Club findClubById(long id) {
+        return clubRepository.findClubById(id)
                 .orElseThrow(() -> new NoSuchElementException("동아리를 찾지 못했습니다."));
     }
 }

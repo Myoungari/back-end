@@ -15,7 +15,7 @@ public class CategoryFakeRepository implements CategoryRepository {
     private static AtomicInteger id = new AtomicInteger(1);
 
     @Override
-    public Optional<Category> getCategoryByName(String name) {
+    public Optional<Category> findCategoryByName(String name) {
         return categories.stream()
                 .filter(category -> category.getName().equals(name))
                 .findFirst();

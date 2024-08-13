@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface CategoryRepository {
 
-    Optional<Category> getCategoryByName(String name);
+    Optional<Category> findCategoryByName(String name);
 
     long save(Category category);
 }

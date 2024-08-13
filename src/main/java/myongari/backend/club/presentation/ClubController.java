@@ -22,22 +22,22 @@ public class ClubController {
     private final ClubService clubService;
 
     @GetMapping("/clubs")
-    public ResponseEntity<Success> findAllSimpleInfo(@PageableDefault Pageable pageable) {
-        ClubSimplePage clubSimpleAll = clubService.getClubSimpleAll(pageable);
+    public ResponseEntity<Success> findClubSimpleAll(@PageableDefault Pageable pageable) {
+        ClubSimplePage clubSimpleAll = clubService.findClubSimpleAll(pageable);
         return ResponseEntity.status(200)
                 .body(Success.of(200, clubSimpleAll));
     }
 
     @GetMapping("/categories/{category_name}/clubs")
-    public ResponseEntity<Success> getClubNamesByCategory(@PathVariable(name = "category_name") String categoryName) {
-        List<ClubName> clubNamesByCategory = clubService.getClubNamesByCategory(categoryName);
+    public ResponseEntity<Success> findClubNamesByCategoryName(@PathVariable(name = "category_name") String categoryName) {
+        List<ClubName> clubNamesByCategory = clubService.findClubNamesByCategoryName(categoryName);
         return ResponseEntity.status(200)
                 .body(Success.of(200, clubNamesByCategory));
     }
 
     @GetMapping("/clubs/{id}")
-    public ResponseEntity<Success> getClubById(@PathVariable(name = "id") int id) {
-        Club club = clubService.getClubById(id);
+    public ResponseEntity<Success> findClubById(@PathVariable(name = "id") int id) {
+        Club club = clubService.findClubById(id);
         return ResponseEntity.status(200)
                 .body(Success.of(200, club));
     }

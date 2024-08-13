@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface ClubRepository {
 
-    Page<ClubSimple> getClubSimpleAll(Pageable pageable);
+    Page<ClubSimple> findClubSimpleAll(Pageable pageable);
 
-    List<ClubName> getClubNamesByCategory(String categoryName);
+    List<ClubName> findClubNamesByCategoryName(String categoryName);
 
-    Optional<Club> getClubById(Long id);
+    Optional<Club> findClubById(Long id);
 }
