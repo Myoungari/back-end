@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class ClubRepositoryImpl implements ClubRepository {
     }
 
     @Override
-    public Club getClubById(Long id) {
-        return clubJpaRepository.findById(id).orElseThrow();
+    public Optional<Club> getClubById(Long id) {
+        return clubJpaRepository.findById(id);
     }
 }
