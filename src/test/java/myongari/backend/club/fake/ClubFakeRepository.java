@@ -36,7 +36,7 @@ public class ClubFakeRepository implements ClubRepository {
     public List<ClubName> findClubNamesByCategoryName(String categoryName) {
         List<ClubName> clubNames = clubs.stream()
                 .filter(club -> club.getCategory().getName().equals(categoryName))
-                .map(club -> new ClubName(club.getName()))
+                .map(club -> new ClubName(club.getApply().getRecruitmentStatus(), club.getName()))
                 .toList();
 
         return clubNames;
