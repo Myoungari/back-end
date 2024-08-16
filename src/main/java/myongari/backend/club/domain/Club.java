@@ -28,10 +28,11 @@ public class Club {
     private String location;
     @Column(name = "sns_link")
     private String snsLink;
-    @Column(name = "image_link")
-    private String imageLink;
     private String introduce;
     private String activity;
+
+    @Embedded
+    private Image image;
 
     @Embedded
     private Apply apply;
@@ -43,13 +44,13 @@ public class Club {
     @JoinColumn(name = "categories_id")
     private Category category;
 
-    public Club(String name, String location, String snsLink, String imageLink, String introduce, String activity, Apply apply, President president, Category category) {
+    public Club(String name, String location, String snsLink, String introduce, String activity, Image image, Apply apply, President president, Category category) {
         this.name = name;
         this.location = location;
         this.snsLink = snsLink;
-        this.imageLink = imageLink;
         this.introduce = introduce;
         this.activity = activity;
+        this.image = image;
         this.apply = apply;
         this.president = president;
         this.category = category;

@@ -24,7 +24,7 @@ public class ClubFakeRepository implements ClubRepository {
         List<ClubSimple> clubSimples = clubs.stream()
                 .map(club -> new ClubSimple(
                         club.getName(),
-                        club.getImageLink(),
+                        club.getImage().getImage(),
                         club.getApply().getRecruitmentStatus(),
                         club.getIntroduce()))
                 .toList();

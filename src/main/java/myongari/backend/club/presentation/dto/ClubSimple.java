@@ -9,8 +9,13 @@ import myongari.backend.club.domain.State;
 public class ClubSimple {
 
     private String name;
-    private String imageLink;
+    private byte[] image;
     private State recruitmentStatus;
     private String introduce;
 
+    public ClubSimple(String name, State recruitmentStatus, String introduce) {
+        this.name = name;
+        this.recruitmentStatus = recruitmentStatus;
+        this.introduce = introduce;
+    }
 }
