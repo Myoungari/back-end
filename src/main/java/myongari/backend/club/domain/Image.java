@@ -20,6 +20,7 @@ public class Image {
     @Column(name = "image_link")
     @JsonIgnore
     private String imageLink;
+    private String type;
     @Transient
     private byte[] image;
 
