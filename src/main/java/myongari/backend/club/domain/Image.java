@@ -28,4 +28,8 @@ public class Image {
     @Transient
     private byte[] image;
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
 }

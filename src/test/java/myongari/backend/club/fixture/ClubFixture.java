@@ -4,6 +4,7 @@ import myongari.backend.club.domain.Apply;
 import myongari.backend.club.domain.Category;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.domain.Image;
+import myongari.backend.club.domain.ImageType;
 import myongari.backend.club.domain.President;
 import myongari.backend.club.domain.State;
 
@@ -18,7 +19,8 @@ public class ClubFixture {
 
     public static Club 동아리_1_정보_생성() {
         Image 동아리_1_로고_이미지 = Image.builder()
-                .imageLink("img/1")
+                .imageLink("test_logo")
+                .type(ImageType.PNG)
                 .build();
         President 회장_1_정보 = new President("홍길동", "010-1111-1111", "example1@example.com");
         Apply 동아리_1_지원_정보 = new Apply(State.Recruited, "https://form.example.com/1", "지원 조건 예시1");

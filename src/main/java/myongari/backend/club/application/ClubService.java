@@ -1,9 +1,15 @@
 package myongari.backend.club.application;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.application.port.CategoryRepository;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
+import myongari.backend.club.domain.Image;
+import myongari.backend.club.application.port.ClubImageStorage;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import myongari.backend.club.presentation.dto.ClubSimplePage;
@@ -12,15 +18,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ClubService {
 
     private final ClubRepository clubRepository;
     private final CategoryRepository categoryRepository;
+    private final ClubImageStorage clubImageStorage;
 
     @Transactional(readOnly = true)
     public ClubSimplePage findClubSimpleAll(Pageable pageable) {
@@ -39,7 +44,19 @@ public class ClubService {
 
     @Transactional(readOnly = true)
     public Club findClubById(long id) {
-        return clubRepository.findClubById(id)
+        Club club = clubRepository.findClubById(id)
                 .orElseThrow(() -> new NoSuchElementException("동아리를 찾지 못했습니다."));
+
+        Image image = club.getImage();
+        byte[] imageAsByteData = null;
+        try {
+            imageAsByteData = clubImageStorage.downloadImage(image.getImageLink(), image.getType());
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+        }
+        image.setImage(imageAsByteData);
+
+        return club;
     }
 }

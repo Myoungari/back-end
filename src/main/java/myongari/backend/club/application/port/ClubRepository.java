@@ -16,4 +16,6 @@ public interface ClubRepository {
     List<ClubName> findClubNamesByCategoryName(String categoryName);
 
     Optional<Club> findClubById(Long id);
+
+    Long save(Club club);
 }

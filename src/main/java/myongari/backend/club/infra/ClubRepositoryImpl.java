@@ -32,4 +32,10 @@ public class ClubRepositoryImpl implements ClubRepository {
     public Optional<Club> findClubById(Long id) {
         return clubJpaRepository.findById(id);
     }
+
+    @Override
+    public Long save(Club club) {
+        Club savedClub = clubJpaRepository.save(club);
+        return savedClub.getId();
+    }
 }
