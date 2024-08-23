@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface ClubJpaRepository extends JpaRepository<Club, Long> {
 
-    @Query("SELECT new myongari.backend.club.presentation.dto.ClubSimple(c.name, c.apply.recruitmentStatus, c.introduce) " +
+    @Query("SELECT new myongari.backend.club.presentation.dto.ClubSimple(c.name, c.image, c.apply.recruitmentStatus, c.introduce) " +
             "FROM Club c")
     Page<ClubSimple> findClubSimpleAll(Pageable pageable);
 

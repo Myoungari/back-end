@@ -6,10 +6,10 @@ import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.application.port.CategoryRepository;
+import myongari.backend.club.application.port.ClubImageStorage;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.domain.Image;
-import myongari.backend.club.application.port.ClubImageStorage;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import myongari.backend.club.presentation.dto.ClubSimplePage;
@@ -31,6 +31,16 @@ public class ClubService {
     public ClubSimplePage findClubSimpleAll(Pageable pageable) {
         Page<ClubSimple> clubSimpleAll = clubRepository.findClubSimpleAll(pageable);
 
+        for (ClubSimple clubSimple : clubSimpleAll) {
+            try {
+                byte[] imageAsByteData = clubImageStorage.downloadImage(clubSimple.getName(), clubSimple.getImage().getType());
+                clubSimple.getImage().setImage(imageAsByteData);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
         return ClubSimplePage.from(clubSimpleAll);
     }
 
@@ -50,7 +60,7 @@ public class ClubService {
         Image image = club.getImage();
         byte[] imageAsByteData = null;
         try {
-            imageAsByteData = clubImageStorage.downloadImage(image.getImageLink(), image.getType());
+            imageAsByteData = clubImageStorage.downloadImage(club.getName(), image.getType());
         } catch (IOException e) {
             log.error(e.getMessage());
             e.printStackTrace();
