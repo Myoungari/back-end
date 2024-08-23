@@ -3,6 +3,7 @@ package myongari.backend.club.infra;
 import static org.assertj.core.api.Assertions.*;
 
 import java.io.IOException;
+import myongari.backend.club.application.port.ClubImageStorage;
 import myongari.backend.club.domain.ImageType;
 import org.junit.jupiter.api.Test;
 
