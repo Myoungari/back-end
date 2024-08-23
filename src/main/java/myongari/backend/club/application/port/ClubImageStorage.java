@@ -1,4 +1,4 @@
-package myongari.backend.club.infra;
+package myongari.backend.club.application.port;
 
 import java.io.IOException;
 import myongari.backend.club.domain.ImageType;
