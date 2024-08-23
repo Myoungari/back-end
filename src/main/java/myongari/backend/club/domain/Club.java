@@ -11,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +20,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "clubs")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class Club {
 
     @Id
@@ -43,16 +47,4 @@ public class Club {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "categories_id")
     private Category category;
-
-    public Club(String name, String location, String snsLink, String introduce, String activity, Image image, Apply apply, President president, Category category) {
-        this.name = name;
-        this.location = location;
-        this.snsLink = snsLink;
-        this.introduce = introduce;
-        this.activity = activity;
-        this.image = image;
-        this.apply = apply;
-        this.president = president;
-        this.category = category;
-    }
 }
