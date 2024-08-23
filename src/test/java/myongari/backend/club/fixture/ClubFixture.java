@@ -19,7 +19,7 @@ public class ClubFixture {
 
     public static Club 동아리_1_정보_생성() {
         Image 동아리_1_로고_이미지 = Image.builder()
-                .imageLink("test_logo")
+                .imageLink(null)
                 .type(ImageType.PNG)
                 .build();
         President 회장_1_정보 = President.builder()
@@ -47,7 +47,7 @@ public class ClubFixture {
 
     public static Club 동아리_2_정보_생성() {
         Image 동아리_2_로고_이미지 = Image.builder()
-                .imageLink("test_logo")
+                .imageLink(null)
                 .type(ImageType.PNG)
                 .build();
         President 회장_2_정보 = President.builder()
@@ -75,7 +75,7 @@ public class ClubFixture {
 
     public static Club 동아리_3_정보_생성() {
         Image 동아리_3_로고_이미지 = Image.builder()
-                .imageLink("test_logo")
+                .imageLink(null)
                 .type(ImageType.PNG)
                 .build();
         President 회장_3_정보 = President.builder()

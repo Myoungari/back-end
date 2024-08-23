@@ -21,10 +21,10 @@ public class ClubImageStorageTest {
     @Test
     void 이미지_데이터를_가져온다() throws IOException {
         // given
-        String imageName = "test_logo";
+        String clubName = "동아리1";
 
         // when
-        byte[] imageData = clubImageStorage.downloadImage(imageName, ImageType.PNG);
+        byte[] imageData = clubImageStorage.downloadImage(clubName, ImageType.PNG);
 
         // then
         assertThat(imageData).isNotNull();
