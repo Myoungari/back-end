@@ -1,5 +1,13 @@
 package myongari.backend.club.infra;
 
+import static myongari.backend.club.fixture.ClubFixture.동아리_1_정보_생성;
+import static myongari.backend.club.fixture.ClubFixture.동아리_2_정보_생성;
+import static myongari.backend.club.fixture.ClubFixture.동아리_3_정보_생성;
+import static myongari.backend.club.fixture.ClubFixture.모든_동아리_정보_생성;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
+
+import java.util.List;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.presentation.dto.ClubName;
@@ -11,12 +19,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.List;
-
-import static myongari.backend.club.fixture.ClubFixture.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DataJpaTest
 @Import(ClubRepositoryImpl.class)
@@ -33,7 +35,10 @@ public class ClubRepositoryTest {
     @Test
     void 모든_동아리_정보들을_페이징_조회한다() {
         // given
-        List<Club> 모든_동아리_정보 = 모든_동아리_정보_생성();
+        Club 동아리_1 = 동아리_1_정보_생성();
+        Club 동아리_2 = 동아리_2_정보_생성();
+        Club 동아리_3 = 동아리_3_정보_생성();
+        List<Club> 모든_동아리_정보 = 모든_동아리_정보_생성(동아리_1, 동아리_2, 동아리_3);
         clubJpaRepository.saveAll(모든_동아리_정보);
 
         int page = 0;

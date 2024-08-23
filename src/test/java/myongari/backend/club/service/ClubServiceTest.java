@@ -1,32 +1,42 @@
 package myongari.backend.club.service;
 
+import static myongari.backend.club.fixture.ClubFixture.동아리_1_정보_생성;
+import static myongari.backend.club.fixture.ClubFixture.카테고리1_생성;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.NoSuchElementException;
 import myongari.backend.club.application.ClubService;
 import myongari.backend.club.application.port.CategoryRepository;
 import myongari.backend.club.application.port.ClubRepository;
+import myongari.backend.club.domain.Club;
 import myongari.backend.club.fake.CategoryFakeRepository;
 import myongari.backend.club.fake.ClubFakeRepository;
-import org.assertj.core.api.Assertions;
+import myongari.backend.club.application.port.ClubImageStorage;
+import myongari.backend.club.infra.ClubImageStorageImpl;
 import org.junit.jupiter.api.Test;
-
-import java.util.NoSuchElementException;
-
-import static myongari.backend.club.fixture.ClubFixture.카테고리1_생성;
 
 @SuppressWarnings("NonAsciiCharacters")
 public class ClubServiceTest {
 
+    private static final String imagePath = "src/test/resources";
+
     private final CategoryRepository categoryRepository;
 
     private final ClubRepository clubRepository;
+
+    private final ClubImageStorage clubImageStorage;
 
     private final ClubService clubService;
 
     public ClubServiceTest() {
         categoryRepository = new CategoryFakeRepository();
         clubRepository = new ClubFakeRepository();
+        clubImageStorage = new ClubImageStorageImpl(imagePath);
         clubService = new ClubService(
                 clubRepository,
-                categoryRepository);
+                categoryRepository,
+                clubImageStorage);
     }
 
     @Test
@@ -36,8 +46,21 @@ public class ClubServiceTest {
         String categoryName = "카테고리2";
 
         // when & then
-        Assertions.assertThatThrownBy(() -> clubService.findClubNamesByCategoryName(categoryName))
+        assertThatThrownBy(() -> clubService.findClubNamesByCategoryName(categoryName))
                 .isInstanceOf(NoSuchElementException.class);
     }
 
+    @Test
+    void 동아리를_조회할_때_이미지_데이터를_같이_반환한다() {
+        // given
+        categoryRepository.save(카테고리1_생성());
+        clubRepository.save(동아리_1_정보_생성());
+        long id = 1L;
+
+        // when
+        Club club = clubService.findClubById(id);
+
+        // then
+        assertThat(club.getImage().getImage()).isNotNull();
+    }
 }
