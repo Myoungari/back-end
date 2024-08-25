@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ClubImageAwsStorage implements ClubImageStorage {
 
-    @Value("${spring.cloud.aws.s3.bucket}")
+    @Value("${spring.cloud.aws.s3.bucket:null}")
     private String bucketName;
 
     private final S3Operations s3Operations;
