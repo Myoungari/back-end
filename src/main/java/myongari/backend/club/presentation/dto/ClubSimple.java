@@ -14,4 +14,7 @@ public class ClubSimple {
     private State recruitmentStatus;
     private String introduce;
 
+    public void setImage(Image image) {
+        this.image = image;
+    }
 }

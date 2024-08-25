@@ -12,7 +12,6 @@ import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.fake.CategoryFakeRepository;
 import myongari.backend.club.fake.ClubFakeRepository;
-import myongari.backend.club.application.port.ClubImageStorage;
 import myongari.backend.club.infra.ClubImageStorageImpl;
 import org.junit.jupiter.api.Test;
 
@@ -25,18 +24,15 @@ public class ClubServiceTest {
 
     private final ClubRepository clubRepository;
 
-    private final ClubImageStorage clubImageStorage;
-
     private final ClubService clubService;
 
     public ClubServiceTest() {
         categoryRepository = new CategoryFakeRepository();
         clubRepository = new ClubFakeRepository();
-        clubImageStorage = new ClubImageStorageImpl(imagePath);
         clubService = new ClubService(
                 clubRepository,
                 categoryRepository,
-                clubImageStorage);
+                new ClubImageStorageImpl(imagePath));
     }
 
     @Test

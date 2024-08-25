@@ -47,4 +47,8 @@ public class Club {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "categories_id")
     private Category category;
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 }
