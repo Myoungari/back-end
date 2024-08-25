@@ -1,9 +1,10 @@
 package myongari.backend.club.infra;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import myongari.backend.club.application.port.ClubImageStorage;
+import myongari.backend.club.domain.Image;
 import myongari.backend.club.domain.ImageType;
 import org.junit.jupiter.api.Test;
 
@@ -24,10 +25,10 @@ public class ClubImageStorageTest {
         String clubName = "동아리1";
 
         // when
-        byte[] imageData = clubImageStorage.downloadImage(clubName, ImageType.PNG);
+        Image imageData = clubImageStorage.downloadImage(clubName, ImageType.PNG);
 
         // then
-        assertThat(imageData).isNotNull();
+        assertThat(imageData.getImage()).isNotNull();
     }
 
 }

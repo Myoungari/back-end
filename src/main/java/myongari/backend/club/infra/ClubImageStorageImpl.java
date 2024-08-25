@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.application.port.ClubImageStorage;
+import myongari.backend.club.domain.Image;
 import myongari.backend.club.domain.ImageType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ public class ClubImageStorageImpl implements ClubImageStorage {
     }
 
     @Override
-    public byte[] downloadImage(String imageName, ImageType imageType) throws IOException {
+    public Image downloadImage(String imageName, ImageType imageType) throws IOException {
         Path path = Paths.get(rootPath + '/' + imageName + "." + imageType.name().toLowerCase());
 
         if (!Files.exists(path)) {
@@ -35,7 +36,10 @@ public class ClubImageStorageImpl implements ClubImageStorage {
         }
 
         try (InputStream inputStream = Files.newInputStream(path)) {
-            return inputStream.readAllBytes();
+            return Image.builder()
+                    .type(imageType)
+                    .image(inputStream.readAllBytes())
+                    .build();
         }
     }
 

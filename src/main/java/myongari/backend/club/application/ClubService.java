@@ -33,8 +33,8 @@ public class ClubService {
 
         for (ClubSimple clubSimple : clubSimpleAll) {
             try {
-                byte[] imageAsByteData = clubImageStorage.downloadImage(clubSimple.getName(), clubSimple.getImage().getType());
-                clubSimple.getImage().setImage(imageAsByteData);
+                Image downloaded = clubImageStorage.downloadImage(clubSimple.getName(), clubSimple.getImage().getType());
+                clubSimple.setImage(downloaded);
             } catch (IOException e) {
                 log.error(e.getMessage());
                 e.printStackTrace();
@@ -58,14 +58,13 @@ public class ClubService {
                 .orElseThrow(() -> new NoSuchElementException("동아리를 찾지 못했습니다."));
 
         Image image = club.getImage();
-        byte[] imageAsByteData = null;
         try {
-            imageAsByteData = clubImageStorage.downloadImage(club.getName(), image.getType());
+            Image downloaded = clubImageStorage.downloadImage(club.getName(), image.getType());
+            club.setImage(downloaded);
         } catch (IOException e) {
             log.error(e.getMessage());
             e.printStackTrace();
         }
-        image.setImage(imageAsByteData);
 
         return club;
     }
