@@ -5,8 +5,10 @@ import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.application.port.CategoryRepository;
+import myongari.backend.club.application.port.ClubImageStorage;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
+import myongari.backend.club.domain.Image;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import myongari.backend.club.presentation.dto.ClubSimplePage;
@@ -22,10 +24,16 @@ public class ClubService {
 
     private final ClubRepository clubRepository;
     private final CategoryRepository categoryRepository;
+    private final ClubImageStorage clubImageStorage;
 
     @Transactional(readOnly = true)
     public ClubSimplePage findClubSimpleAll(Pageable pageable) {
         Page<ClubSimple> clubSimpleAll = clubRepository.findClubSimpleAll(pageable);
+
+        for (ClubSimple clubSimple : clubSimpleAll) {
+            Image downloaded = clubImageStorage.downloadImage(clubSimple.getName(), clubSimple.getImage().getType());
+            clubSimple.setImage(downloaded);
+        }
 
         return ClubSimplePage.from(clubSimpleAll);
     }
@@ -40,7 +48,13 @@ public class ClubService {
 
     @Transactional(readOnly = true)
     public Club findClubById(long id) {
-        return clubRepository.findClubById(id)
+        Club club = clubRepository.findClubById(id)
                 .orElseThrow(() -> new NoSuchElementException("동아리를 찾지 못했습니다."));
+
+        Image image = club.getImage();
+        Image downloaded = clubImageStorage.downloadImage(club.getName(), image.getType());
+        club.setImage(downloaded);
+
+        return club;
     }
 }
