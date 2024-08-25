@@ -13,8 +13,4 @@ public class ClubSimple {
     private Image image;
     private State recruitmentStatus;
     private String introduce;
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
 }

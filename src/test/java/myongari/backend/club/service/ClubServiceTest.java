@@ -1,42 +1,31 @@
 package myongari.backend.club.service;
 
-import static myongari.backend.club.fixture.ClubFixture.동아리_1_정보_생성;
 import static myongari.backend.club.fixture.ClubFixture.카테고리1_생성;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.NoSuchElementException;
 import myongari.backend.club.application.ClubService;
 import myongari.backend.club.application.port.CategoryRepository;
 import myongari.backend.club.application.port.ClubRepository;
-import myongari.backend.club.domain.Club;
 import myongari.backend.club.fake.CategoryFakeRepository;
 import myongari.backend.club.fake.ClubFakeRepository;
-import myongari.backend.club.application.port.ClubImageStorage;
-import myongari.backend.club.infra.ClubImageStorageImpl;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")
 public class ClubServiceTest {
 
-    private static final String imagePath = "src/test/resources";
-
     private final CategoryRepository categoryRepository;
 
     private final ClubRepository clubRepository;
-
-    private final ClubImageStorage clubImageStorage;
 
     private final ClubService clubService;
 
     public ClubServiceTest() {
         categoryRepository = new CategoryFakeRepository();
         clubRepository = new ClubFakeRepository();
-        clubImageStorage = new ClubImageStorageImpl(imagePath);
         clubService = new ClubService(
                 clubRepository,
-                categoryRepository,
-                clubImageStorage);
+                categoryRepository);
     }
 
     @Test
@@ -50,6 +39,7 @@ public class ClubServiceTest {
                 .isInstanceOf(NoSuchElementException.class);
     }
 
+    /* deprecated
     @Test
     void 동아리를_조회할_때_이미지_데이터를_같이_반환한다() {
         // given
@@ -63,4 +53,5 @@ public class ClubServiceTest {
         // then
         assertThat(club.getImage().getImage()).isNotNull();
     }
+    */
 }

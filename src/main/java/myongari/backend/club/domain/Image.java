@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 public class Image {
 
     @Column(name = "image_link")
-    @Transient
     private String imageLink;
     @Column(name = "image_type")
     @Enumerated(EnumType.STRING)
@@ -28,9 +27,4 @@ public class Image {
     @Transient
     @JsonIgnore
     private byte[] image;
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
 }
