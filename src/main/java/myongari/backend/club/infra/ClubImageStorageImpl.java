@@ -24,7 +24,7 @@ public class ClubImageStorageImpl implements ClubImageStorage {
 
     @Override
     public Image downloadImage(String imageName, ImageType imageType) {
-        Path path = Paths.get(rootPath + '/' + imageName + "." + imageType.name().toLowerCase());
+        Path path = Paths.get(rootPath + '/' + imageName + "." + imageType.getLowerCase());
 
         try {
             if (!Files.exists(path)) {
