@@ -23,23 +23,29 @@ public class ClubImageStorageImpl implements ClubImageStorage {
     }
 
     @Override
-    public Image downloadImage(String imageName, ImageType imageType) throws IOException {
+    public Image downloadImage(String imageName, ImageType imageType) {
         Path path = Paths.get(rootPath + '/' + imageName + "." + imageType.name().toLowerCase());
 
-        if (!Files.exists(path)) {
-            throw new IOException("이미지를 찾을 수 없습니다.");
-        }
+        try {
+            if (!Files.exists(path)) {
+                throw new IOException("이미지를 찾을 수 없습니다.");
+            }
 
-        String contentType = Files.probeContentType(path);
-        if (contentType == null || !isValidImageType(contentType)) {
-            throw new IOException("호환되는 타입이 아닙니다.");
-        }
+            String contentType = Files.probeContentType(path);
+            if (contentType == null || !isValidImageType(contentType)) {
+                throw new IOException("호환되는 타입이 아닙니다.");
+            }
 
-        try (InputStream inputStream = Files.newInputStream(path)) {
-            return Image.builder()
-                    .type(imageType)
-                    .image(inputStream.readAllBytes())
-                    .build();
+            try (InputStream inputStream = Files.newInputStream(path)) {
+                return Image.builder()
+                        .type(imageType)
+                        .image(inputStream.readAllBytes())
+                        .build();
+            }
+        }
+        catch (IOException e) {
+            log.error("IO 예외 발생 : {}", e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

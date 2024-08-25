@@ -1,6 +1,5 @@
 package myongari.backend.club.application;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +31,8 @@ public class ClubService {
         Page<ClubSimple> clubSimpleAll = clubRepository.findClubSimpleAll(pageable);
 
         for (ClubSimple clubSimple : clubSimpleAll) {
-            try {
-                Image downloaded = clubImageStorage.downloadImage(clubSimple.getName(), clubSimple.getImage().getType());
-                clubSimple.setImage(downloaded);
-            } catch (IOException e) {
-                log.error(e.getMessage());
-                e.printStackTrace();
-            }
+            Image downloaded = clubImageStorage.downloadImage(clubSimple.getName(), clubSimple.getImage().getType());
+            clubSimple.setImage(downloaded);
         }
 
         return ClubSimplePage.from(clubSimpleAll);
@@ -58,13 +52,8 @@ public class ClubService {
                 .orElseThrow(() -> new NoSuchElementException("동아리를 찾지 못했습니다."));
 
         Image image = club.getImage();
-        try {
-            Image downloaded = clubImageStorage.downloadImage(club.getName(), image.getType());
-            club.setImage(downloaded);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            e.printStackTrace();
-        }
+        Image downloaded = clubImageStorage.downloadImage(club.getName(), image.getType());
+        club.setImage(downloaded);
 
         return club;
     }
