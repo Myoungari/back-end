@@ -20,12 +20,13 @@ import lombok.NoArgsConstructor;
 public class Image {
 
     @Column(name = "image_link")
-    @JsonIgnore
+    @Transient
     private String imageLink;
     @Column(name = "image_type")
     @Enumerated(EnumType.STRING)
     private ImageType type;
     @Transient
+    @JsonIgnore
     private byte[] image;
 
     public void setImage(byte[] image) {
