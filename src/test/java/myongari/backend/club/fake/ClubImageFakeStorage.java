@@ -1,26 +1,21 @@
-package myongari.backend.club.infra;
+package myongari.backend.club.fake;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.application.port.ClubImageStorage;
 import myongari.backend.club.domain.Image;
 import myongari.backend.club.domain.ImageType;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Component
-@Slf4j
-public class ClubImageStorageImpl implements ClubImageStorage {
+public class ClubImageFakeStorage implements ClubImageStorage {
 
-    private final String rootPath;
+    private static final Logger log = LoggerFactory.getLogger(ClubImageFakeStorage.class);
 
-    public ClubImageStorageImpl(@Value("${image.path}") String rootPath) {
-        this.rootPath = rootPath;
-    }
+    private static final String rootPath = "src/test/resources";
 
     @Override
     public Image downloadImage(String imageName, ImageType imageType) {

@@ -6,6 +6,7 @@ import java.io.IOException;
 import myongari.backend.club.application.port.ClubImageStorage;
 import myongari.backend.club.domain.Image;
 import myongari.backend.club.domain.ImageType;
+import myongari.backend.club.fake.ClubImageFakeStorage;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")
@@ -16,7 +17,7 @@ public class ClubImageStorageTest {
     private final ClubImageStorage clubImageStorage;
 
     public ClubImageStorageTest() {
-        this.clubImageStorage = new ClubImageStorageImpl(imagePath);
+        this.clubImageStorage = new ClubImageFakeStorage();
     }
 
     @Test

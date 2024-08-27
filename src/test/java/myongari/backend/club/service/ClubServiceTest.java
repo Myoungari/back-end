@@ -1,6 +1,7 @@
 package myongari.backend.club.service;
 
 import static myongari.backend.club.fixture.ClubFixture.동아리_1_정보_생성;
+import static myongari.backend.club.fixture.ClubFixture.동아리_2_정보_생성_이미지_없음;
 import static myongari.backend.club.fixture.ClubFixture.카테고리1_생성;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -12,13 +13,12 @@ import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.fake.CategoryFakeRepository;
 import myongari.backend.club.fake.ClubFakeRepository;
-import myongari.backend.club.infra.ClubImageStorageImpl;
+import myongari.backend.club.fake.ClubImageFakeStorage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")
 public class ClubServiceTest {
-
-    private static final String imagePath = "src/test/resources";
 
     private final CategoryRepository categoryRepository;
 
@@ -32,7 +32,7 @@ public class ClubServiceTest {
         clubService = new ClubService(
                 clubRepository,
                 categoryRepository,
-                new ClubImageStorageImpl(imagePath));
+                new ClubImageFakeStorage());
     }
 
     @Test
