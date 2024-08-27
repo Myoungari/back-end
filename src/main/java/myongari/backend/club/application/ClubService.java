@@ -31,8 +31,11 @@ public class ClubService {
         Page<ClubSimple> clubSimpleAll = clubRepository.findClubSimpleAll(pageable);
 
         for (ClubSimple clubSimple : clubSimpleAll) {
-            if (clubSimple.getImage() == null) continue;
-            Image downloaded = clubImageStorage.downloadImage(clubSimple.getName(), clubSimple.getImage().getType());
+            Image image = clubSimple.getImage();
+            if (image == null) {
+                continue;
+            }
+            Image downloaded = clubImageStorage.downloadImage(image.getUuid());
             clubSimple.setImage(downloaded);
         }
 
@@ -54,7 +57,7 @@ public class ClubService {
 
         Image image = club.getImage();
         if (image != null) {
-            Image downloaded = clubImageStorage.downloadImage(club.getName(), image.getType());
+            Image downloaded = clubImageStorage.downloadImage(image.getUuid());
             club.setImage(downloaded);
         }
 

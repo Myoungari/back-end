@@ -13,7 +13,7 @@ import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.fake.CategoryFakeRepository;
 import myongari.backend.club.fake.ClubFakeRepository;
-import myongari.backend.club.fake.ClubImageFakeStorage;
+import myongari.backend.club.stub.ClubImageStubStorage;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")
@@ -31,7 +31,7 @@ public class ClubServiceTest {
         clubService = new ClubService(
                 clubRepository,
                 categoryRepository,
-                new ClubImageFakeStorage());
+                new ClubImageStubStorage());
     }
 
     @Test
