@@ -3,9 +3,8 @@ package myongari.backend.club.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Transient;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,13 +18,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Image {
 
-    @Column(name = "image_link")
+    @JsonIgnore
+    @Column(name = "image_uuid", columnDefinition = "BINARY(16)")
+    private UUID uuid;
     @Transient
     private String imageLink;
-    @Column(name = "image_type")
-    @Enumerated(EnumType.STRING)
-    private ImageType type;
-    @Transient
-    @JsonIgnore
-    private byte[] image;
 }

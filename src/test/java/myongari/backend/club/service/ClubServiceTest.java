@@ -1,6 +1,7 @@
 package myongari.backend.club.service;
 
 import static myongari.backend.club.fixture.ClubFixture.동아리_1_정보_생성;
+import static myongari.backend.club.fixture.ClubFixture.동아리_2_정보_생성_이미지_없음;
 import static myongari.backend.club.fixture.ClubFixture.카테고리1_생성;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -12,13 +13,11 @@ import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.fake.CategoryFakeRepository;
 import myongari.backend.club.fake.ClubFakeRepository;
-import myongari.backend.club.infra.ClubImageStorageImpl;
+import myongari.backend.club.stub.ClubImageStubStorage;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")
 public class ClubServiceTest {
-
-    private static final String imagePath = "src/test/resources";
 
     private final CategoryRepository categoryRepository;
 
@@ -32,7 +31,7 @@ public class ClubServiceTest {
         clubService = new ClubService(
                 clubRepository,
                 categoryRepository,
-                new ClubImageStorageImpl(imagePath));
+                new ClubImageStubStorage());
     }
 
     @Test
@@ -57,6 +56,20 @@ public class ClubServiceTest {
         Club club = clubService.findClubById(id);
 
         // then
-        assertThat(club.getImage().getImage()).isNotNull();
+        assertThat(club.getImage()).isNotNull();
+    }
+
+    @Test
+    void 동아리를_조회할_때_이미지가_없다면_이미지_링크를_받지_않는다() {
+        // given
+        categoryRepository.save(카테고리1_생성());
+        clubRepository.save(동아리_2_정보_생성_이미지_없음());
+        long id = 1L;
+
+        // when
+        Club club = clubService.findClubById(id);
+
+        // then
+        assertThat(club.getImage()).isNull();
     }
 }

@@ -15,8 +15,8 @@ import org.springframework.data.domain.Pageable;
 
 public class ClubFakeRepository implements ClubRepository {
 
-    private static final List<Club> clubs = Collections.synchronizedList(new ArrayList<>());
-    private static AtomicLong id = new AtomicLong(1);
+    private final List<Club> clubs = Collections.synchronizedList(new ArrayList<>());
+    private final AtomicLong id = new AtomicLong(1);
 
     @Override
     public Page<ClubSimple> findClubSimpleAll(Pageable pageable) {
@@ -33,25 +33,25 @@ public class ClubFakeRepository implements ClubRepository {
 
     @Override
     public List<ClubName> findClubNamesByCategoryName(String categoryName) {
-        List<ClubName> clubNames = clubs.stream()
+        return clubs.stream()
                 .filter(club -> club.getCategory().getName().equals(categoryName))
                 .map(club -> new ClubName(club.getApply().getRecruitmentStatus(), club.getName()))
                 .toList();
-
-        return clubNames;
     }
 
     @Override
     public Optional<Club> findClubById(Long id) {
-        return clubs.stream()
-                .filter(each -> each.getId() == id - 1)
-                .findFirst();
+        return Optional.of(clubs.get((int) (id - 1)));
     }
 
     @Override
     public Long save(Club club) {
-        clubs.add(club);
-        id.getAndIncrement();
-        return id.get();
+        if (club.getId() == 0L) {
+            long savedId = id.getAndIncrement();
+            clubs.add((int) savedId - 1, club);
+            return savedId;
+        }
+        clubs.add((int) club.getId(), club);
+        return club.getId();
     }
 }

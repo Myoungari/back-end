@@ -1,14 +1,13 @@
 package myongari.backend.club.fixture;
 
+import java.util.List;
+import java.util.UUID;
 import myongari.backend.club.domain.Apply;
 import myongari.backend.club.domain.Category;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.domain.Image;
-import myongari.backend.club.domain.ImageType;
 import myongari.backend.club.domain.President;
 import myongari.backend.club.domain.State;
-
-import java.util.List;
 
 @SuppressWarnings("NonAsciiCharacters")
 public class ClubFixture {
@@ -19,8 +18,8 @@ public class ClubFixture {
 
     public static Club 동아리_1_정보_생성() {
         Image 동아리_1_로고_이미지 = Image.builder()
+                .uuid(UUID.randomUUID())
                 .imageLink(null)
-                .type(ImageType.PNG)
                 .build();
         President 회장_1_정보 = President.builder()
                 .name("홍길동")
@@ -45,11 +44,7 @@ public class ClubFixture {
                 .build();
     }
 
-    public static Club 동아리_2_정보_생성() {
-        Image 동아리_2_로고_이미지 = Image.builder()
-                .imageLink(null)
-                .type(ImageType.PNG)
-                .build();
+    public static Club 동아리_2_정보_생성_이미지_없음() {
         President 회장_2_정보 = President.builder()
                 .name("김철수")
                 .contact("010-2222-2222")
@@ -66,7 +61,7 @@ public class ClubFixture {
                 .snsLink("https://sns.example.com/2")
                 .introduce("소개글 예시2")
                 .activity("활동 예시2")
-                .image(동아리_2_로고_이미지)
+                .image(null)
                 .apply(동아리_2_지원_정보)
                 .president(회장_2_정보)
                 .category(카테고리1_생성())
@@ -75,8 +70,7 @@ public class ClubFixture {
 
     public static Club 동아리_3_정보_생성() {
         Image 동아리_3_로고_이미지 = Image.builder()
-                .imageLink(null)
-                .type(ImageType.PNG)
+                .uuid(UUID.randomUUID())
                 .build();
         President 회장_3_정보 = President.builder()
                 .name("박지성")
