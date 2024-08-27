@@ -9,14 +9,17 @@ import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 public class ClubFakeRepository implements ClubRepository {
 
-    private static final List<Club> clubs = Collections.synchronizedList(new ArrayList<>());
-    private static AtomicLong id = new AtomicLong(1);
+    private static final Logger log = LoggerFactory.getLogger(ClubFakeRepository.class);
+    private final List<Club> clubs = Collections.synchronizedList(new ArrayList<>());
+    private AtomicLong id = new AtomicLong(1);
 
     @Override
     public Page<ClubSimple> findClubSimpleAll(Pageable pageable) {
@@ -47,6 +50,7 @@ public class ClubFakeRepository implements ClubRepository {
     @Override
     public Long save(Club club) {
         clubs.add((int) id.getAndIncrement() - 1, club);
+        log.info("club saved id : {}", id.get() - 1);
         return id.get();
     }
 }

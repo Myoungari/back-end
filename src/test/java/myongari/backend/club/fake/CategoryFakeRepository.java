@@ -7,11 +7,14 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import myongari.backend.club.application.port.CategoryRepository;
 import myongari.backend.club.domain.Category;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CategoryFakeRepository implements CategoryRepository {
 
-    private static final List<Category> categories = Collections.synchronizedList(new ArrayList<>());
-    private static AtomicInteger id = new AtomicInteger(1);
+    private static final Logger log = LoggerFactory.getLogger(CategoryFakeRepository.class);
+    private final List<Category> categories = Collections.synchronizedList(new ArrayList<>());
+    private AtomicInteger id = new AtomicInteger(1);
 
     @Override
     public Optional<Category> findCategoryByName(String name) {
