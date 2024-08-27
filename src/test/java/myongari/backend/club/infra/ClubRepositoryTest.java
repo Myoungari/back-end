@@ -1,7 +1,7 @@
 package myongari.backend.club.infra;
 
 import static myongari.backend.club.fixture.ClubFixture.동아리_1_정보_생성;
-import static myongari.backend.club.fixture.ClubFixture.동아리_2_정보_생성;
+import static myongari.backend.club.fixture.ClubFixture.동아리_2_정보_생성_이미지_없음;
 import static myongari.backend.club.fixture.ClubFixture.동아리_3_정보_생성;
 import static myongari.backend.club.fixture.ClubFixture.모든_동아리_정보_생성;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +36,7 @@ public class ClubRepositoryTest {
     void 모든_동아리_정보들을_페이징_조회한다() {
         // given
         Club 동아리_1 = 동아리_1_정보_생성();
-        Club 동아리_2 = 동아리_2_정보_생성();
+        Club 동아리_2 = 동아리_2_정보_생성_이미지_없음();
         Club 동아리_3 = 동아리_3_정보_생성();
         List<Club> 모든_동아리_정보 = 모든_동아리_정보_생성(동아리_1, 동아리_2, 동아리_3);
         clubJpaRepository.saveAll(모든_동아리_정보);
@@ -56,7 +56,7 @@ public class ClubRepositoryTest {
     void 카테고리별_동아리_이름_내역을_가져온다() {
         // given
         Club 동아리_1 = 동아리_1_정보_생성();
-        Club 동아리_2 = 동아리_2_정보_생성();
+        Club 동아리_2 = 동아리_2_정보_생성_이미지_없음();
         Club 동아리_3 = 동아리_3_정보_생성();
         List<Club> 모든_동아리_정보 = 모든_동아리_정보_생성(동아리_1, 동아리_2, 동아리_3);
         clubJpaRepository.saveAll(모든_동아리_정보);

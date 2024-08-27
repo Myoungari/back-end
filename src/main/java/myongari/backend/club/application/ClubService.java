@@ -31,6 +31,7 @@ public class ClubService {
         Page<ClubSimple> clubSimpleAll = clubRepository.findClubSimpleAll(pageable);
 
         for (ClubSimple clubSimple : clubSimpleAll) {
+            if (clubSimple.getImage() == null) continue;
             Image downloaded = clubImageStorage.downloadImage(clubSimple.getName(), clubSimple.getImage().getType());
             clubSimple.setImage(downloaded);
         }
@@ -52,8 +53,10 @@ public class ClubService {
                 .orElseThrow(() -> new NoSuchElementException("동아리를 찾지 못했습니다."));
 
         Image image = club.getImage();
-        Image downloaded = clubImageStorage.downloadImage(club.getName(), image.getType());
-        club.setImage(downloaded);
+        if (image != null) {
+            Image downloaded = clubImageStorage.downloadImage(club.getName(), image.getType());
+            club.setImage(downloaded);
+        }
 
         return club;
     }

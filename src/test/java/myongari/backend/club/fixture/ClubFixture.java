@@ -45,11 +45,7 @@ public class ClubFixture {
                 .build();
     }
 
-    public static Club 동아리_2_정보_생성() {
-        Image 동아리_2_로고_이미지 = Image.builder()
-                .imageLink(null)
-                .type(ImageType.PNG)
-                .build();
+    public static Club 동아리_2_정보_생성_이미지_없음() {
         President 회장_2_정보 = President.builder()
                 .name("김철수")
                 .contact("010-2222-2222")
@@ -66,7 +62,7 @@ public class ClubFixture {
                 .snsLink("https://sns.example.com/2")
                 .introduce("소개글 예시2")
                 .activity("활동 예시2")
-                .image(동아리_2_로고_이미지)
+                .image(null)
                 .apply(동아리_2_지원_정보)
                 .president(회장_2_정보)
                 .category(카테고리1_생성())

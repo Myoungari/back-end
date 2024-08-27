@@ -33,25 +33,20 @@ public class ClubFakeRepository implements ClubRepository {
 
     @Override
     public List<ClubName> findClubNamesByCategoryName(String categoryName) {
-        List<ClubName> clubNames = clubs.stream()
+        return clubs.stream()
                 .filter(club -> club.getCategory().getName().equals(categoryName))
                 .map(club -> new ClubName(club.getApply().getRecruitmentStatus(), club.getName()))
                 .toList();
-
-        return clubNames;
     }
 
     @Override
     public Optional<Club> findClubById(Long id) {
-        return clubs.stream()
-                .filter(each -> each.getId() == id - 1)
-                .findFirst();
+        return Optional.of(clubs.get((int) (id - 1)));
     }
 
     @Override
     public Long save(Club club) {
-        clubs.add(club);
-        id.getAndIncrement();
+        clubs.add((int) id.getAndIncrement() - 1, club);
         return id.get();
     }
 }

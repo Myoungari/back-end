@@ -1,13 +1,12 @@
 package myongari.backend.club.fake;
 
-import myongari.backend.club.application.port.CategoryRepository;
-import myongari.backend.club.domain.Category;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import myongari.backend.club.application.port.CategoryRepository;
+import myongari.backend.club.domain.Category;
 
 public class CategoryFakeRepository implements CategoryRepository {
 
