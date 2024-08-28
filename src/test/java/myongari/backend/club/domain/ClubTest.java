@@ -1,4 +1,4 @@
-package myongari.backend.club;
+package myongari.backend.club.domain;
 
 import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_01_끝_08_10;
 import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_01_끝_08_30;
@@ -6,8 +6,6 @@ import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_�
 import static org.assertj.core.api.Assertions.assertThat;
 
 import myongari.backend.club.application.port.DateHolder;
-import myongari.backend.club.domain.Apply;
-import myongari.backend.club.domain.State;
 import myongari.backend.club.stub.FixedDateHolder;
 import org.junit.jupiter.api.Test;
 
