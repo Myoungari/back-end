@@ -7,8 +7,21 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum State {
 
-    Recruiting("모집중"),
-    Recruited("모집완료");
+    Pending,
+    Recruiting,
+    Recruited,
+    ClosedEarly,
+    Cancelled,
+    Unplanned;
 
-    private final String description;
+    public String getRecruitState() {
+        String state = "";
+        if (this.equals(Recruiting) || this.equals(Pending)) {
+            state = "Recruiting";
+        }
+        if (this.equals(Unplanned) || this.equals(Recruited) || this.equals(ClosedEarly) || this.equals(Cancelled)) {
+            state = "Recruited";
+        }
+        return state;
+    }
 }
