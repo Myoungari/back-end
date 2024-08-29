@@ -15,8 +15,8 @@ import java.util.List;
 @Repository
 public interface ClubJpaRepository extends JpaRepository<Club, Long> {
 
-    @Query("SELECT new myongari.backend.club.presentation.dto.ClubSimple(c.name, c.image, c.apply.recruitmentStatus, c.introduce) " +
-            "FROM Club c")
+    @Query("SELECT new myongari.backend.club.presentation.dto.ClubSimple(c.name, c.image, c.apply.recruitmentStatus, c.introduce) "
+            + "FROM Club c")
     Page<ClubSimple> findClubSimpleAll(Pageable pageable);
 
     @Query("SELECT new myongari.backend.club.presentation.dto.ClubName(cl.apply.recruitmentStatus ,cl.name) "
@@ -24,9 +24,15 @@ public interface ClubJpaRepository extends JpaRepository<Club, Long> {
             + "JOIN cl.category c "
             + "WHERE c.name = :categoryName "
             + "ORDER BY CASE "
-                + "WHEN cl.apply.recruitmentStatus = 'Recruiting' THEN 1 "
-                + "WHEN cl.apply.recruitmentStatus = 'Recruited' THEN 2 "
+            + "WHEN cl.apply.recruitmentStatus = 'Recruiting' THEN 1 "
+            + "WHEN cl.apply.recruitmentStatus = 'Recruited' THEN 2 "
             + "END, cl.name")
     List<ClubName> findClubNamesByCategoryName(@Param("categoryName") String categoryName);
 
+    @Query("SELECT c "
+            + "FROM Club c "
+            + "WHERE c.apply.recruitmentStatus = 'Recruiting' "
+            + "OR c.apply.recruitmentStatus = 'Recruited' "
+            + "OR c.apply.recruitmentStatus = 'Pending'")
+    List<Club> findClubsCanUpdateStatus();
 }

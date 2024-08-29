@@ -17,5 +17,9 @@ public interface ClubRepository {
 
     Optional<Club> findClubById(Long id);
 
+    List<Club> findClubsCanUpdateStatus();
+
     Long save(Club club);
+
+    void saveAll(List<Club> clubs);
 }

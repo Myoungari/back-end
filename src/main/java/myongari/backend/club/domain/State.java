@@ -1,5 +1,6 @@
 package myongari.backend.club.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,8 +8,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum State {
 
-    Recruiting("모집중"),
-    Recruited("모집완료");
+    Pending("Recruiting"),
+    Recruiting("Recruiting"),
+    Recruited("Recruited"),
+    ClosedEarly("Recruited"),
+    Cancelled("Recruited"),
+    Unplanned("Recruited");
 
-    private final String description;
+    @JsonValue
+    private final String msg;
 }

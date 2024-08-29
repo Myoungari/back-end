@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
+import myongari.backend.club.domain.State;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import org.springframework.data.domain.Page;
@@ -45,6 +46,16 @@ public class ClubFakeRepository implements ClubRepository {
     }
 
     @Override
+    public List<Club> findClubsCanUpdateStatus() {
+        return clubs.stream()
+                .filter(club -> {
+                    State state = club.getApply().getRecruitmentStatus();
+                    return state.equals(State.Pending) || state.equals(State.Recruiting) || state.equals(State.Recruited);
+                })
+                .toList();
+    }
+
+    @Override
     public Long save(Club club) {
         if (club.getId() == 0L) {
             long savedId = id.getAndIncrement();
@@ -53,5 +64,10 @@ public class ClubFakeRepository implements ClubRepository {
         }
         clubs.add((int) club.getId(), club);
         return club.getId();
+    }
+
+    @Override
+    public void saveAll(List<Club> clubs) {
+        clubs.forEach(this::save);
     }
 }
