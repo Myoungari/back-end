@@ -3,6 +3,7 @@ package myongari.backend.club.presentation;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.ClubService;
 import myongari.backend.club.domain.Club;
+import myongari.backend.club.presentation.dto.ClubCategory;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubSimplePage;
 import myongari.backend.common.response.Success;
@@ -28,11 +29,14 @@ public class ClubController {
                 .body(Success.of(200, clubSimpleAll));
     }
 
-    @GetMapping("/categories/{category_name}/clubs")
-    public ResponseEntity<Success> findClubNamesByCategoryName(@PathVariable(name = "category_name") String categoryName) {
+    @GetMapping("/{category_name}/{club_id}")
+    public ResponseEntity<Success> findClubNamesByCategoryName(@PathVariable(name = "category_name") String categoryName,
+            @PathVariable(name = "club_id") int id) {
         List<ClubName> clubNamesByCategory = clubService.findClubNamesByCategoryName(categoryName);
+        Club club = clubService.findClubById(id);
+        ClubCategory clubCategory = new ClubCategory(clubNamesByCategory, club);
         return ResponseEntity.status(200)
-                .body(Success.of(200, clubNamesByCategory));
+                .body(Success.of(200, clubCategory));
     }
 
     @GetMapping("/clubs/{id}")
