@@ -23,10 +23,12 @@ public class ClubFakeRepository implements ClubRepository {
     public Page<ClubSimple> findClubSimpleAll(Pageable pageable) {
         List<ClubSimple> clubSimples = clubs.stream()
                 .map(club -> new ClubSimple(
+                        club.getId(),
                         club.getName(),
                         club.getImage(),
                         club.getApply().getRecruitmentStatus(),
-                        club.getIntroduce()))
+                        club.getIntroduce(),
+                        club.getCategory().getName()))
                 .toList();
 
         return new PageImpl<>(clubSimples, pageable, clubs.size());
