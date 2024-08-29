@@ -9,10 +9,12 @@ import myongari.backend.club.domain.State;
 @AllArgsConstructor
 public class ClubSimple {
 
+    private long id;
     private String name;
     private Image image;
     private State recruitmentStatus;
     private String introduce;
+    private String categoryName;
 
     public void setImage(Image image) {
         this.image = image;
