@@ -8,7 +8,7 @@ import myongari.backend.club.domain.State;
 @AllArgsConstructor
 public class ClubName {
 
-    private State recruitmentStatus;
+    private long id;
     private String clubName;
-
+    private State recruitmentStatus;
 }

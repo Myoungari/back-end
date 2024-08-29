@@ -19,14 +19,14 @@ public interface ClubJpaRepository extends JpaRepository<Club, Long> {
             + "FROM Club c")
     Page<ClubSimple> findClubSimpleAll(Pageable pageable);
 
-    @Query("SELECT new myongari.backend.club.presentation.dto.ClubName(cl.apply.recruitmentStatus ,cl.name) "
+    @Query("SELECT new myongari.backend.club.presentation.dto.ClubName(cl.id, cl.name, cl.apply.recruitmentStatus ) "
             + "FROM Club cl "
             + "JOIN cl.category c "
             + "WHERE c.name = :categoryName "
             + "ORDER BY CASE "
-            + "WHEN cl.apply.recruitmentStatus = 'Recruiting' THEN 1 "
-            + "WHEN cl.apply.recruitmentStatus = 'Recruited' THEN 2 "
-            + "END, cl.name")
+            + "WHEN cl.apply.recruitmentStatus IN (myongari.backend.club.domain.State.Pending, myongari.backend.club.domain.State.Recruiting) THEN 1 "
+            + "WHEN cl.apply.recruitmentStatus IN (myongari.backend.club.domain.State.Unplanned, myongari.backend.club.domain.State.Recruited, myongari.backend.club.domain.State.ClosedEarly, myongari.backend.club.domain.State.Cancelled) THEN 2 "
+            + "END, cl.name ASC")
     List<ClubName> findClubNamesByCategoryName(@Param("categoryName") String categoryName);
 
     @Query("SELECT c "
