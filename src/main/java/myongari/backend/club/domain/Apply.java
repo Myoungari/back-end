@@ -36,16 +36,12 @@ public class Apply {
         LocalDate now = dateHolder.getDate();
         // 모집 예정, 모집 중, 모집 마감
         if (recruitmentStatus == State.Pending || recruitmentStatus == State.Recruiting || recruitmentStatus == State.Recruited) {
-            if (recruitStartDate != null && recruitEndDate != null) {
-                recruitmentStatus = State.Recruited;
+            if (now.isBefore(recruitStartDate)) {
+                recruitmentStatus = State.Pending;
             }
 
             if (now.isAfter(recruitStartDate) && now.isBefore(recruitEndDate)) {
                 recruitmentStatus = State.Recruiting;
-            }
-
-            if (now.isBefore(recruitStartDate)) {
-                recruitmentStatus = State.Pending;
             }
 
             if (now.isAfter(recruitEndDate)) {

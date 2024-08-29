@@ -34,8 +34,18 @@ public class ClubRepositoryImpl implements ClubRepository {
     }
 
     @Override
+    public List<Club> findClubsCanUpdateStatus() {
+        return clubJpaRepository.findClubsCanUpdateStatus();
+    }
+
+    @Override
     public Long save(Club club) {
         Club savedClub = clubJpaRepository.save(club);
         return savedClub.getId();
+    }
+
+    @Override
+    public void saveAll(List<Club> clubs) {
+        clubJpaRepository.saveAll(clubs);
     }
 }
