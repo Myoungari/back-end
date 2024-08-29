@@ -32,10 +32,10 @@ public class Apply {
     private LocalDate recruitEndDate;
     private String qualifications;
 
-    public void setRecruitmentStatus(DateHolder dateHolder) {
+    public void updateRecruitmentStatusFromRecruitDate(DateHolder dateHolder) {
         LocalDate now = dateHolder.getDate();
-        if (recruitmentStatus == State.Recruiting || recruitmentStatus == State.Pending || recruitmentStatus == State.Recruited) {
-            // 모집 중, 모집 예정, 모집 마감
+        // 모집 예정, 모집 중, 모집 마감
+        if (recruitmentStatus == State.Pending || recruitmentStatus == State.Recruiting || recruitmentStatus == State.Recruited) {
             if (recruitStartDate != null && recruitEndDate != null) {
                 recruitmentStatus = State.Recruited;
             }

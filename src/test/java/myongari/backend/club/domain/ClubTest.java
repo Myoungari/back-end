@@ -29,7 +29,7 @@ public class ClubTest {
         Apply apply = 지원_정보_생성_시작_08_01_끝_08_30();
 
         // when
-        apply.setRecruitmentStatus(dateHolder);
+        apply.updateRecruitmentStatusFromRecruitDate(dateHolder);
 
         // then
         assertThat(apply.getRecruitmentStatus()).isEqualTo(State.Recruiting);
@@ -41,7 +41,7 @@ public class ClubTest {
         Apply apply = 지원_정보_생성_시작_08_16_끝_08_30();
 
         // when
-        apply.setRecruitmentStatus(dateHolder);
+        apply.updateRecruitmentStatusFromRecruitDate(dateHolder);
 
         // then
         assertThat(apply.getRecruitmentStatus()).isEqualTo(State.Pending);
@@ -53,7 +53,7 @@ public class ClubTest {
         Apply apply = 지원_정보_생성_시작_08_01_끝_08_10();
 
         // when
-        apply.setRecruitmentStatus(dateHolder);
+        apply.updateRecruitmentStatusFromRecruitDate(dateHolder);
 
         // then
         assertThat(apply.getRecruitmentStatus()).isEqualTo(State.Recruited);
