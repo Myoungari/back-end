@@ -2,6 +2,7 @@ package myongari.backend.club.domain;
 
 import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_01_끝_08_14;
 import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_01_끝_08_15;
+import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_01_끝_08_30;
 import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_15_끝_08_30;
 import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_16_끝_08_30;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,15 +31,18 @@ public class ClubTest {
         // given
         Apply apply1 = 지원_정보_생성_시작_08_01_끝_08_15();
         Apply apply2 = 지원_정보_생성_시작_08_15_끝_08_30();
+        Apply apply3 = 지원_정보_생성_시작_08_01_끝_08_30();
 
         // when
         apply1.updateRecruitmentStatusFromRecruitDate(dateHolder);
         apply2.updateRecruitmentStatusFromRecruitDate(dateHolder);
+        apply3.updateRecruitmentStatusFromRecruitDate(dateHolder);
 
         // then
         assertSoftly(softly -> {
             assertThat(apply1.getRecruitmentStatus()).isEqualTo(State.Recruiting);
             assertThat(apply2.getRecruitmentStatus()).isEqualTo(State.Recruiting);
+            assertThat(apply3.getRecruitmentStatus()).isEqualTo(State.Recruiting);
         });
     }
 
