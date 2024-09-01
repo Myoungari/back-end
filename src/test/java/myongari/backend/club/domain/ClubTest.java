@@ -1,9 +1,11 @@
 package myongari.backend.club.domain;
 
-import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_01_끝_08_10;
-import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_01_끝_08_30;
+import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_01_끝_08_14;
+import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_01_끝_08_15;
+import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_15_끝_08_30;
 import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_16_끝_08_30;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import myongari.backend.club.application.port.DateHolder;
 import myongari.backend.club.stub.FixedDateHolder;
@@ -26,13 +28,18 @@ public class ClubTest {
     @Test
     void 현재_기간이_동아리_모집_기간_안에_속한다면_모집중_상태를_반환한다() {
         // given
-        Apply apply = 지원_정보_생성_시작_08_01_끝_08_30();
+        Apply apply1 = 지원_정보_생성_시작_08_01_끝_08_15();
+        Apply apply2 = 지원_정보_생성_시작_08_15_끝_08_30();
 
         // when
-        apply.updateRecruitmentStatusFromRecruitDate(dateHolder);
+        apply1.updateRecruitmentStatusFromRecruitDate(dateHolder);
+        apply2.updateRecruitmentStatusFromRecruitDate(dateHolder);
 
         // then
-        assertThat(apply.getRecruitmentStatus()).isEqualTo(State.Recruiting);
+        assertSoftly(softly -> {
+            assertThat(apply1.getRecruitmentStatus()).isEqualTo(State.Recruiting);
+            assertThat(apply2.getRecruitmentStatus()).isEqualTo(State.Recruiting);
+        });
     }
 
     @Test
@@ -50,7 +57,7 @@ public class ClubTest {
     @Test
     void 현재_기간이_동아리_모집_끝_기간을_지났다면_모집마감_상태를_반환한다() {
         // given
-        Apply apply = 지원_정보_생성_시작_08_01_끝_08_10();
+        Apply apply = 지원_정보_생성_시작_08_01_끝_08_14();
 
         // when
         apply.updateRecruitmentStatusFromRecruitDate(dateHolder);
