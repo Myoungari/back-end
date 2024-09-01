@@ -34,6 +34,7 @@ public class Apply {
 
     public void updateRecruitmentStatusFromRecruitDate(DateHolder dateHolder) {
         LocalDate now = dateHolder.getDate();
+
         if (!canUpdateRecruitmentStatus()) {
             return;
         }

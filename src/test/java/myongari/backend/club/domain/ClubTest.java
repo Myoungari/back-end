@@ -6,7 +6,6 @@ import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_�
 import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_15_끝_08_30;
 import static myongari.backend.club.fixture.ApplyFixture.지원_정보_생성_시작_08_16_끝_08_30;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import myongari.backend.club.application.port.DateHolder;
 import myongari.backend.club.stub.FixedDateHolder;
@@ -61,7 +60,7 @@ public class ClubTest {
     @Test
     void 현재_기간이_동아리_모집_끝_기간을_지났다면_모집마감_상태를_반환한다() {
         // given
-        Apply apply = 지원_정보_생성_시작_08_01_끝_08_14();
+        Apply apply = 지원_정보_생성_시작_08_01_끝_08_10();
 
         // when
         apply.updateRecruitmentStatusFromRecruitDate(dateHolder);
