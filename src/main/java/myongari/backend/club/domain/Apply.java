@@ -40,7 +40,8 @@ public class Apply {
                 recruitmentStatus = State.Pending;
             }
 
-            if (now.isAfter(recruitStartDate) && now.isBefore(recruitEndDate)) {
+            if (now.isEqual(recruitStartDate) && now.isAfter(recruitStartDate)
+                    && now.isBefore(recruitEndDate) && now.isEqual(recruitEndDate)) {
                 recruitmentStatus = State.Recruiting;
             }
 
