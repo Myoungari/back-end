@@ -34,19 +34,41 @@ public class Apply {
 
     public void updateRecruitmentStatusFromRecruitDate(DateHolder dateHolder) {
         LocalDate now = dateHolder.getDate();
-        // 모집 예정, 모집 중, 모집 마감
-        if (recruitmentStatus == State.Pending || recruitmentStatus == State.Recruiting || recruitmentStatus == State.Recruited) {
-            if (now.isBefore(recruitStartDate)) {
-                recruitmentStatus = State.Pending;
-            }
 
-            if (now.isAfter(recruitStartDate) && now.isBefore(recruitEndDate)) {
-                recruitmentStatus = State.Recruiting;
-            }
-
-            if (now.isAfter(recruitEndDate)) {
-                recruitmentStatus = State.Recruited;
-            }
+        if (!canUpdateRecruitmentStatus()) {
+            return;
         }
+
+        if (isPending(now)) {
+            recruitmentStatus = State.Pending;
+        }
+
+        if (isRecruiting(now)) {
+            recruitmentStatus = State.Recruiting;
+        }
+
+        if (isRecruited(now)) {
+            recruitmentStatus = State.Recruited;
+        }
+    }
+
+    private boolean canUpdateRecruitmentStatus() {
+        return recruitmentStatus == State.Pending
+                || recruitmentStatus == State.Recruiting
+                || recruitmentStatus == State.Recruited;
+    }
+
+    private boolean isPending(LocalDate now) {
+        return now.isBefore(recruitStartDate);
+    }
+
+    private boolean isRecruiting(LocalDate now) {
+        return now.isEqual(recruitStartDate) ||
+                (now.isAfter(recruitStartDate) && now.isBefore(recruitEndDate))
+                || now.isEqual(recruitEndDate);
+    }
+
+    private boolean isRecruited(LocalDate now) {
+        return now.isAfter(recruitEndDate);
     }
 }
