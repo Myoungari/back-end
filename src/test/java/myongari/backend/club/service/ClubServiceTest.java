@@ -5,6 +5,7 @@ import static myongari.backend.club.fixture.ClubFixture.동아리_2_정보_생�
 import static myongari.backend.club.fixture.ClubFixture.카테고리1_생성;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import java.util.NoSuchElementException;
 import myongari.backend.club.application.ClubService;
@@ -35,14 +36,33 @@ public class ClubServiceTest {
     }
 
     @Test
-    void 카테고리_이름이_저장소에_없다면_예외를_발생시킨다() {
+    void 카테고리가_저장소에_없다면_예외를_발생시킨다() {
         // given
         categoryRepository.save(카테고리1_생성());
         String categoryName = "카테고리2";
 
         // when & then
-        assertThatThrownBy(() -> clubService.findClubNamesByCategoryName(categoryName))
-                .isInstanceOf(NoSuchElementException.class);
+        assertThatThrownBy(() -> clubService.findClubNamesAndClubDetailByCategoryName(categoryName))
+                .isInstanceOf(NoSuchElementException.class)
+                .hasMessage("카테고리를 찾지 못했습니다.");
+    }
+
+    @Test
+    void 카테고리_내_동아리가_없다면_예외를_발생시킨다() {
+        // given
+        categoryRepository.save(카테고리1_생성());
+        String categoryName = "카테고리1";
+        long clubId = 1L;
+
+        // when & then
+        assertSoftly(softly -> {
+            assertThatThrownBy(() -> clubService.findClubNamesAndClubDetailByCategoryName(categoryName))
+                    .isInstanceOf(NoSuchElementException.class)
+                    .hasMessage("카테고리 내 동아리가 존재하지 않습니다.");
+            assertThatThrownBy(() -> clubService.findClubNamesAndClubDetailByCategoryName(categoryName, clubId))
+                    .isInstanceOf(NoSuchElementException.class)
+                    .hasMessage("카테고리 내 동아리가 존재하지 않습니다.");
+        });
     }
 
     @Test
