@@ -1,16 +1,8 @@
 package myongari.backend.common.response;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+public record Success<T>(int code, T data) {
 
-@RequiredArgsConstructor
-@Getter
-public class Success<T> {
-
-    private final int code;
-    private final T data;
-
-    public static <T> Success of(int code, T data) {
-        return new Success(code, data);
+    public static <T> Success<T> of(int code, T data) {
+        return new Success<>(code, data);
     }
 }
