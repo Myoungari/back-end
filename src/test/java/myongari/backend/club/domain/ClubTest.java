@@ -40,14 +40,14 @@ public class ClubTest {
 
         // then
         assertSoftly(softly -> {
-            assertThat(apply1.getRecruitmentStatus()).isEqualTo(State.Recruiting);
-            assertThat(apply2.getRecruitmentStatus()).isEqualTo(State.Recruiting);
-            assertThat(apply3.getRecruitmentStatus()).isEqualTo(State.Recruiting);
+            assertThat(apply1.getRecruitmentStatus()).isEqualTo(State.RECRUITING);
+            assertThat(apply2.getRecruitmentStatus()).isEqualTo(State.RECRUITING);
+            assertThat(apply3.getRecruitmentStatus()).isEqualTo(State.RECRUITING);
         });
     }
 
     @Test
-    void 현재_기간이_동아리_모집_시작_기간_보다_빠르다면_모집예정_상태를_반환한다() {
+    void 현재_기간이_동아리_모집_시작_기간_보다_빠르다면_모집마감_상태를_반환한다() {
         // given
         Apply apply = 지원_정보_생성_시작_08_16_끝_08_30();
 
@@ -55,7 +55,7 @@ public class ClubTest {
         apply.updateRecruitmentStatusFromRecruitDate(dateHolder);
 
         // then
-        assertThat(apply.getRecruitmentStatus()).isEqualTo(State.Pending);
+        assertThat(apply.getRecruitmentStatus()).isEqualTo(State.RECRUITED);
     }
 
     @Test
@@ -67,6 +67,6 @@ public class ClubTest {
         apply.updateRecruitmentStatusFromRecruitDate(dateHolder);
 
         // then
-        assertThat(apply.getRecruitmentStatus()).isEqualTo(State.Recruited);
+        assertThat(apply.getRecruitmentStatus()).isEqualTo(State.RECRUITED);
     }
 }

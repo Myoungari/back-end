@@ -28,7 +28,7 @@ public class ClubFixture {
                 .email("example1@example.com")
                 .build();
         Apply 동아리_1_지원_정보 = Apply.builder()
-                .recruitmentStatus(State.Recruited)
+                .recruitmentStatus(State.RECRUITED)
                 .recruitStartDate(new FixedDateHolder(8, 1).getDate())
                 .recruitEndDate(new FixedDateHolder(8, 30).getDate())
                 .applyLink("https://form.example.com/1")
@@ -54,7 +54,7 @@ public class ClubFixture {
                 .email("example2@example.com")
                 .build();
         Apply 동아리_2_지원_정보 = Apply.builder()
-                .recruitmentStatus(State.Recruiting)
+                .recruitmentStatus(State.RECRUITING)
                 .recruitStartDate(new FixedDateHolder(8, 1).getDate())
                 .recruitEndDate(new FixedDateHolder(8, 10).getDate())
                 .applyLink("https://form.example.com/2")
@@ -83,7 +83,7 @@ public class ClubFixture {
                 .email("example3@example.com")
                 .build();
         Apply 동아리_3_지원_정보 = Apply.builder()
-                .recruitmentStatus(State.Recruiting)
+                .recruitmentStatus(State.RECRUITING)
                 .recruitStartDate(new FixedDateHolder(8, 20).getDate())
                 .recruitEndDate(new FixedDateHolder(12, 31).getDate())
                 .applyLink("https://form.example.com/3")

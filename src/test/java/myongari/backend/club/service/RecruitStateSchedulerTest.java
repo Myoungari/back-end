@@ -45,9 +45,9 @@ public class RecruitStateSchedulerTest {
         Club 동아리_2 = clubRepository.findClubById(2L).get();
         Club 동아리_3 = clubRepository.findClubById(3L).get();
         SoftAssertions.assertSoftly(softly -> {
-            softly.assertThat(동아리_1.getApply().getRecruitmentStatus()).isEqualTo(State.Recruiting);
-            softly.assertThat(동아리_2.getApply().getRecruitmentStatus()).isEqualTo(State.Recruited);
-            softly.assertThat(동아리_3.getApply().getRecruitmentStatus()).isEqualTo(State.Pending);
+            softly.assertThat(동아리_1.getApply().getRecruitmentStatus()).isEqualTo(State.RECRUITING);
+            softly.assertThat(동아리_2.getApply().getRecruitmentStatus()).isEqualTo(State.RECRUITED);
+            softly.assertThat(동아리_3.getApply().getRecruitmentStatus()).isEqualTo(State.RECRUITED);
         });
     }
 }

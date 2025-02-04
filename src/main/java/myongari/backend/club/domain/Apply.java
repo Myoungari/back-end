@@ -39,27 +39,18 @@ public class Apply {
             return;
         }
 
-        if (isPending(now)) {
-            recruitmentStatus = State.Pending;
-        }
-
         if (isRecruiting(now)) {
-            recruitmentStatus = State.Recruiting;
+            recruitmentStatus = State.RECRUITING;
         }
 
         if (isRecruited(now)) {
-            recruitmentStatus = State.Recruited;
+            recruitmentStatus = State.RECRUITED;
         }
     }
 
     private boolean canUpdateRecruitmentStatus() {
-        return recruitmentStatus == State.Pending
-                || recruitmentStatus == State.Recruiting
-                || recruitmentStatus == State.Recruited;
-    }
-
-    private boolean isPending(LocalDate now) {
-        return now.isBefore(recruitStartDate);
+        return recruitmentStatus == State.RECRUITING
+                || recruitmentStatus == State.RECRUITED;
     }
 
     private boolean isRecruiting(LocalDate now) {

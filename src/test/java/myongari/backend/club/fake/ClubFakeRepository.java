@@ -52,7 +52,7 @@ public class ClubFakeRepository implements ClubRepository {
         return clubs.stream()
                 .filter(club -> {
                     State state = club.getApply().getRecruitmentStatus();
-                    return state.equals(State.Pending) || state.equals(State.Recruiting) || state.equals(State.Recruited);
+                    return state.equals(State.RECRUITING) || state.equals(State.RECRUITED);
                 })
                 .toList();
     }
