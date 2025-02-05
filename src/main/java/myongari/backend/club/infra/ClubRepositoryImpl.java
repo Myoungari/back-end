@@ -17,15 +17,16 @@ import java.util.Optional;
 public class ClubRepositoryImpl implements ClubRepository {
 
     private final ClubJpaRepository clubJpaRepository;
+    private final ClubDslRepository clubDslRepository;
 
     @Override
     public Page<ClubSimple> findClubSimpleAll(Pageable pageable) {
-        return clubJpaRepository.findClubSimpleAll(pageable);
+        return clubDslRepository.findClubSimpleAll(pageable);
     }
 
     @Override
     public List<ClubName> findClubNamesByCategoryName(String categoryName) {
-        return clubJpaRepository.findClubNamesByCategoryName(categoryName);
+        return clubDslRepository.findClubNamesByCategoryName(categoryName);
     }
 
     @Override
