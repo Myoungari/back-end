@@ -4,12 +4,10 @@ import java.util.List;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.dto.ClubNamesAndDetail;
 import myongari.backend.club.dto.ClubSummary;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface ClubRepository {
 
-    Page<ClubSummary> findClubSimpleAll(Pageable pageable);
+    List<ClubSummary> findClubSummaryAll();
     ClubNamesAndDetail findClubNamesAndDetailByCategoryName(String categoryName, Long clubId);
     List<Club> findClubsAll();
 

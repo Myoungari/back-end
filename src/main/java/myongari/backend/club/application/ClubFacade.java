@@ -1,13 +1,11 @@
 package myongari.backend.club.application;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.domain.Image;
 import myongari.backend.club.dto.ClubNamesAndDetail;
 import myongari.backend.club.dto.ClubSummary;
-import myongari.backend.club.dto.ClubSummaryPage;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,10 +16,10 @@ public class ClubFacade {
     private final ClubService clubService;
     private final ClubImageService clubImageService;
 
-    public ClubSummaryPage findClubSimpleAll(Pageable pageable) {
-        Page<ClubSummary> clubSimpleAll = clubService.findClubSimpleAll(pageable);
+    public List<ClubSummary> findClubSummaryAll() {
+        List<ClubSummary> clubSummaryAll = clubService.findClubSummaryAll();
 
-        for (ClubSummary clubSummary : clubSimpleAll) {
+        for (ClubSummary clubSummary : clubSummaryAll) {
             Image image = clubSummary.getImage();
             if (image == null) {
                 continue;
@@ -30,7 +28,7 @@ public class ClubFacade {
             clubSummary.setImage(downloaded);
         }
 
-        return ClubSummaryPage.from(clubSimpleAll);
+        return clubSummaryAll;
     }
 
     public ClubNamesAndDetail findClubNamesAndClubDetailByCategoryName(

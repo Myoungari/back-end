@@ -13,9 +13,6 @@ import myongari.backend.club.domain.Club;
 import myongari.backend.club.dto.ClubName;
 import myongari.backend.club.dto.ClubNamesAndDetail;
 import myongari.backend.club.dto.ClubSummary;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -24,8 +21,8 @@ public class ClubDslRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    Page<ClubSummary> findClubSimpleAll(Pageable pageable) {
-        List<ClubSummary> clubSummaries = queryFactory.select(Projections.constructor(ClubSummary.class,
+    List<ClubSummary> findClubSummaryAll() {
+        return queryFactory.select(Projections.constructor(ClubSummary.class,
                         club.id,
                         club.name,
                         club.image,
@@ -34,13 +31,7 @@ public class ClubDslRepository {
                         club.category.name
                 ))
                 .from(club)
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
                 .fetch();
-
-        long totalCount = queryFactory.selectFrom(club).fetch().size();
-
-        return new PageImpl<>(clubSummaries, pageable, totalCount);
     }
 
     public ClubNamesAndDetail findClubNamesAndDetailByCategoryName(

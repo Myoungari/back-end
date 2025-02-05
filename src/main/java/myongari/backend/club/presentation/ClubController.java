@@ -1,12 +1,11 @@
 package myongari.backend.club.presentation;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.ClubFacade;
 import myongari.backend.club.dto.ClubNamesAndDetail;
-import myongari.backend.club.dto.ClubSummaryPage;
+import myongari.backend.club.dto.ClubSummary;
 import myongari.backend.common.response.Success;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,12 +20,10 @@ public class ClubController implements ClubSwagger {
     private final ClubFacade clubFacade;
 
     @GetMapping("/clubs")
-    public ResponseEntity<Success<ClubSummaryPage>> findClubSimpleAll(
-            @PageableDefault Pageable pageable
-    ) {
-        ClubSummaryPage clubSimpleAll = clubFacade.findClubSimpleAll(pageable);
+    public ResponseEntity<Success<List<ClubSummary>>> getClubSummaryAll() {
+        List<ClubSummary> clubSummaryAll = clubFacade.findClubSummaryAll();
         return ResponseEntity.status(200)
-                .body(Success.of(200, clubSimpleAll));
+                .body(Success.of(200, clubSummaryAll));
     }
 
     @GetMapping("/{category_name}")

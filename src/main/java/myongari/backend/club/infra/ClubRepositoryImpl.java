@@ -6,8 +6,6 @@ import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.dto.ClubNamesAndDetail;
 import myongari.backend.club.dto.ClubSummary;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,8 +16,8 @@ public class ClubRepositoryImpl implements ClubRepository {
     private final ClubDslRepository clubDslRepository;
 
     @Override
-    public Page<ClubSummary> findClubSimpleAll(final Pageable pageable) {
-        return clubDslRepository.findClubSimpleAll(pageable);
+    public List<ClubSummary> findClubSummaryAll() {
+        return clubDslRepository.findClubSummaryAll();
     }
 
     @Override
