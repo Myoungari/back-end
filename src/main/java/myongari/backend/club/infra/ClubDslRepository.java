@@ -10,7 +10,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.domain.Club;
-import myongari.backend.club.domain.State;
 import myongari.backend.club.presentation.dto.ClubName;
 import myongari.backend.club.presentation.dto.ClubNamesAndDetail;
 import myongari.backend.club.presentation.dto.ClubSimple;
@@ -42,25 +41,6 @@ public class ClubDslRepository {
         long totalCount = queryFactory.selectFrom(club).fetch().size();
 
         return new PageImpl<>(clubSimples, pageable, totalCount);
-    }
-
-    public List<ClubName> findClubNamesByCategoryName(String categoryName) {
-        return queryFactory.select(Projections.constructor(ClubName.class,
-                        club.id,
-                        club.name,
-                        club.apply.recruitmentStatus
-                ))
-                .from(club)
-                .join(category).on(club.category.eq(category))
-                .where(category.name.eq(categoryName))
-                .orderBy(club.apply.recruitmentStatus.asc(), club.name.asc())
-                .fetch();
-    }
-
-    public void findClubsByRecruitmentStatus(State recruitmentStatus) {
-        queryFactory.selectFrom(club)
-                .where(club.apply.recruitmentStatus.eq(recruitmentStatus))
-                .fetch();
     }
 
     public ClubNamesAndDetail findClubNamesAndDetailByCategoryName(

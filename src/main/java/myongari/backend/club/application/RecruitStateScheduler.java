@@ -19,7 +19,7 @@ public class RecruitStateScheduler {
 
     @Scheduled(cron = "0 0 0 * * *")
     public void updateRecruitState() {
-        List<Club> clubs = clubRepository.findClubs();
+        List<Club> clubs = clubRepository.findClubsAll();
 
         clubs.forEach(club -> {
             log.debug("before: {} {}", club.getName(), club.getApply().getRecruitmentStatus());

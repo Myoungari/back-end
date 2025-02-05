@@ -1,7 +1,6 @@
 package myongari.backend.club.infra;
 
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
@@ -32,19 +31,8 @@ public class ClubRepositoryImpl implements ClubRepository {
     }
 
     @Override
-    public Optional<Club> findClubById(final Long id) {
-        return clubJpaRepository.findById(id);
-    }
-
-    @Override
     public List<Club> findClubsAll() {
         return clubJpaRepository.findAll();
-    }
-
-    @Override
-    public Long save(final Club club) {
-        Club savedClub = clubJpaRepository.save(club);
-        return savedClub.getId();
     }
 
     @Override
