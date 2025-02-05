@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class ClubController {
+public class ClubController implements ClubSwagger {
 
     private final ClubFacade clubFacade;
 
@@ -41,9 +41,9 @@ public class ClubController {
     @GetMapping("/{category_name}/{club_id}")
     public ResponseEntity<Success<ClubNamesAndDetail>> getClubNamesByCategoryNameAndClubId(
             @PathVariable(name = "category_name") String categoryName,
-            @PathVariable(name = "club_id") long id
+            @PathVariable(name = "club_id") Long clubId
     ) {
-        ClubNamesAndDetail clubNamesAndClubDetail = clubFacade.findClubNamesAndClubDetailByCategoryName(categoryName, id);
+        ClubNamesAndDetail clubNamesAndClubDetail = clubFacade.findClubNamesAndClubDetailByCategoryName(categoryName, clubId);
         return ResponseEntity.status(200)
                 .body(Success.of(200, clubNamesAndClubDetail));
     }
