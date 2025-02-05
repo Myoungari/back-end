@@ -1,4 +1,4 @@
-package myongari.backend.club.presentation.dto;
+package myongari.backend.club.dto;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

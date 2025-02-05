@@ -1,4 +1,4 @@
-package myongari.backend.club.presentation.dto;
+package myongari.backend.club.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

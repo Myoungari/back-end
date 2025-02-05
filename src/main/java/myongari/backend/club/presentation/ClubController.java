@@ -2,8 +2,8 @@ package myongari.backend.club.presentation;
 
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.ClubFacade;
-import myongari.backend.club.presentation.dto.ClubNamesAndDetail;
-import myongari.backend.club.presentation.dto.ClubSimplePage;
+import myongari.backend.club.dto.ClubNamesAndDetail;
+import myongari.backend.club.dto.ClubSimplePage;
 import myongari.backend.common.response.Success;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

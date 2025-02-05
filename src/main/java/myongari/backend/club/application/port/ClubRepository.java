@@ -2,8 +2,8 @@ package myongari.backend.club.application.port;
 
 import java.util.List;
 import myongari.backend.club.domain.Club;
-import myongari.backend.club.presentation.dto.ClubNamesAndDetail;
-import myongari.backend.club.presentation.dto.ClubSimple;
+import myongari.backend.club.dto.ClubNamesAndDetail;
+import myongari.backend.club.dto.ClubSimple;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
