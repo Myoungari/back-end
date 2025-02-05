@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.dto.ClubName;
 import myongari.backend.club.dto.ClubNamesAndDetail;
-import myongari.backend.club.dto.ClubSimple;
+import myongari.backend.club.dto.ClubSummary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +24,8 @@ public class ClubDslRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    Page<ClubSimple> findClubSimpleAll(Pageable pageable) {
-        List<ClubSimple> clubSimples = queryFactory.select(Projections.constructor(ClubSimple.class,
+    Page<ClubSummary> findClubSimpleAll(Pageable pageable) {
+        List<ClubSummary> clubSummaries = queryFactory.select(Projections.constructor(ClubSummary.class,
                         club.id,
                         club.name,
                         club.image,
@@ -40,7 +40,7 @@ public class ClubDslRepository {
 
         long totalCount = queryFactory.selectFrom(club).fetch().size();
 
-        return new PageImpl<>(clubSimples, pageable, totalCount);
+        return new PageImpl<>(clubSummaries, pageable, totalCount);
     }
 
     public ClubNamesAndDetail findClubNamesAndDetailByCategoryName(

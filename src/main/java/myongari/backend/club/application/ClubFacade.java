@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.domain.Image;
 import myongari.backend.club.dto.ClubNamesAndDetail;
-import myongari.backend.club.dto.ClubSimple;
-import myongari.backend.club.dto.ClubSimplePage;
+import myongari.backend.club.dto.ClubSummary;
+import myongari.backend.club.dto.ClubSummaryPage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,19 +18,19 @@ public class ClubFacade {
     private final ClubService clubService;
     private final ClubImageService clubImageService;
 
-    public ClubSimplePage findClubSimpleAll(Pageable pageable) {
-        Page<ClubSimple> clubSimpleAll = clubService.findClubSimpleAll(pageable);
+    public ClubSummaryPage findClubSimpleAll(Pageable pageable) {
+        Page<ClubSummary> clubSimpleAll = clubService.findClubSimpleAll(pageable);
 
-        for (ClubSimple clubSimple : clubSimpleAll) {
-            Image image = clubSimple.getImage();
+        for (ClubSummary clubSummary : clubSimpleAll) {
+            Image image = clubSummary.getImage();
             if (image == null) {
                 continue;
             }
             Image downloaded = clubImageService.getImage(image.getUuid());
-            clubSimple.setImage(downloaded);
+            clubSummary.setImage(downloaded);
         }
 
-        return ClubSimplePage.from(clubSimpleAll);
+        return ClubSummaryPage.from(clubSimpleAll);
     }
 
     public ClubNamesAndDetail findClubNamesAndClubDetailByCategoryName(

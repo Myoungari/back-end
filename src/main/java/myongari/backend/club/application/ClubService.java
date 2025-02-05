@@ -3,7 +3,7 @@ package myongari.backend.club.application;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.dto.ClubNamesAndDetail;
-import myongari.backend.club.dto.ClubSimple;
+import myongari.backend.club.dto.ClubSummary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class ClubService {
 
     private final ClubRepository clubRepository;
 
-    public Page<ClubSimple> findClubSimpleAll(Pageable pageable) {
+    public Page<ClubSummary> findClubSimpleAll(Pageable pageable) {
         return clubRepository.findClubSimpleAll(pageable);
     }
 

@@ -3,7 +3,7 @@ package myongari.backend.club.presentation;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.ClubFacade;
 import myongari.backend.club.dto.ClubNamesAndDetail;
-import myongari.backend.club.dto.ClubSimplePage;
+import myongari.backend.club.dto.ClubSummaryPage;
 import myongari.backend.common.response.Success;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,10 +21,10 @@ public class ClubController {
     private final ClubFacade clubFacade;
 
     @GetMapping("/clubs")
-    public ResponseEntity<Success<ClubSimplePage>> findClubSimpleAll(
+    public ResponseEntity<Success<ClubSummaryPage>> findClubSimpleAll(
             @PageableDefault Pageable pageable
     ) {
-        ClubSimplePage clubSimpleAll = clubFacade.findClubSimpleAll(pageable);
+        ClubSummaryPage clubSimpleAll = clubFacade.findClubSimpleAll(pageable);
         return ResponseEntity.status(200)
                 .body(Success.of(200, clubSimpleAll));
     }

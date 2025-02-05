@@ -8,15 +8,15 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class ClubSimplePage {
+public class ClubSummaryPage {
 
     private long totalPages;
     private long totalElements;
     private long currentPage;
-    private List<ClubSimple> content;
+    private List<ClubSummary> content;
 
-    public static ClubSimplePage from(Page<ClubSimple> clubSimpleAll) {
-        return new ClubSimplePage(clubSimpleAll.getTotalPages(),
+    public static ClubSummaryPage from(Page<ClubSummary> clubSimpleAll) {
+        return new ClubSummaryPage(clubSimpleAll.getTotalPages(),
                 clubSimpleAll.getTotalElements(),
                 clubSimpleAll.getNumber(),
                 clubSimpleAll.getContent());
