@@ -35,10 +35,6 @@ public class Apply {
     public void updateRecruitmentStatusFromRecruitDate(DateHolder dateHolder) {
         LocalDate now = dateHolder.getDate();
 
-        if (!canUpdateRecruitmentStatus()) {
-            return;
-        }
-
         if (isRecruiting(now)) {
             recruitmentStatus = State.RECRUITING;
         }
@@ -48,18 +44,14 @@ public class Apply {
         }
     }
 
-    private boolean canUpdateRecruitmentStatus() {
-        return recruitmentStatus == State.RECRUITING
-                || recruitmentStatus == State.RECRUITED;
-    }
-
     private boolean isRecruiting(LocalDate now) {
-        return now.isEqual(recruitStartDate) ||
-                (now.isAfter(recruitStartDate) && now.isBefore(recruitEndDate))
+        return now.isEqual(recruitStartDate)
+                || (now.isAfter(recruitStartDate) && now.isBefore(recruitEndDate))
                 || now.isEqual(recruitEndDate);
     }
 
     private boolean isRecruited(LocalDate now) {
-        return now.isAfter(recruitEndDate);
+        return now.isBefore(recruitStartDate)
+                || now.isAfter(recruitEndDate);
     }
 }
