@@ -1,8 +1,7 @@
 package myongari.backend.club.presentation;
 
 import lombok.RequiredArgsConstructor;
-import myongari.backend.club.application.ClubService;
-import myongari.backend.club.domain.Club;
+import myongari.backend.club.application.ClubFacade;
 import myongari.backend.club.presentation.dto.ClubNamesAndDetail;
 import myongari.backend.club.presentation.dto.ClubSimplePage;
 import myongari.backend.common.response.Success;
@@ -19,34 +18,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ClubController {
 
-    private final ClubService clubService;
+    private final ClubFacade clubFacade;
 
     @GetMapping("/clubs")
-    public ResponseEntity<Success> findClubSimpleAll(@PageableDefault Pageable pageable) {
-        ClubSimplePage clubSimpleAll = clubService.findClubSimpleAll(pageable);
+    public ResponseEntity<Success<ClubSimplePage>> findClubSimpleAll(
+            @PageableDefault Pageable pageable
+    ) {
+        ClubSimplePage clubSimpleAll = clubFacade.findClubSimpleAll(pageable);
         return ResponseEntity.status(200)
                 .body(Success.of(200, clubSimpleAll));
     }
 
     @GetMapping("/{category_name}")
-    public ResponseEntity<Success> findClubNamesByCategoryName(@PathVariable(name = "category_name") String categoryName) {
-        ClubNamesAndDetail clubNamesAndClubDetail = clubService.findClubNamesAndClubDetailByCategoryName(categoryName);
+    public ResponseEntity<Success<ClubNamesAndDetail>> getClubNamesByCategoryName(
+            @PathVariable(name = "category_name") String categoryName
+    ) {
+        ClubNamesAndDetail clubNamesAndClubDetail = clubFacade.findClubNamesAndClubDetailByCategoryName(categoryName, null);
         return ResponseEntity.status(200)
                 .body(Success.of(200, clubNamesAndClubDetail));
     }
 
     @GetMapping("/{category_name}/{club_id}")
-    public ResponseEntity<Success> findClubNamesByCategoryNameAndClubId(@PathVariable(name = "category_name") String categoryName,
-            @PathVariable(name = "club_id") long id) {
-        ClubNamesAndDetail clubNamesAndClubDetail = clubService.findClubNamesAndClubDetailByCategoryName(categoryName, id);
+    public ResponseEntity<Success<ClubNamesAndDetail>> getClubNamesByCategoryNameAndClubId(
+            @PathVariable(name = "category_name") String categoryName,
+            @PathVariable(name = "club_id") long id
+    ) {
+        ClubNamesAndDetail clubNamesAndClubDetail = clubFacade.findClubNamesAndClubDetailByCategoryName(categoryName, id);
         return ResponseEntity.status(200)
                 .body(Success.of(200, clubNamesAndClubDetail));
-    }
-
-    @GetMapping("/clubs/{id}")
-    public ResponseEntity<Success> findClubById(@PathVariable(name = "id") int id) {
-        Club club = clubService.findClubById(id);
-        return ResponseEntity.status(200)
-                .body(Success.of(200, club));
     }
 }

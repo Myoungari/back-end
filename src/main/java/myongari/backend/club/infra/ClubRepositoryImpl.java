@@ -1,16 +1,15 @@
 package myongari.backend.club.infra;
 
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
-import myongari.backend.club.presentation.dto.ClubName;
+import myongari.backend.club.presentation.dto.ClubNamesAndDetail;
 import myongari.backend.club.presentation.dto.ClubSimple;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -20,33 +19,36 @@ public class ClubRepositoryImpl implements ClubRepository {
     private final ClubDslRepository clubDslRepository;
 
     @Override
-    public Page<ClubSimple> findClubSimpleAll(Pageable pageable) {
+    public Page<ClubSimple> findClubSimpleAll(final Pageable pageable) {
         return clubDslRepository.findClubSimpleAll(pageable);
     }
 
     @Override
-    public List<ClubName> findClubNamesByCategoryName(String categoryName) {
-        return clubDslRepository.findClubNamesByCategoryName(categoryName);
+    public ClubNamesAndDetail findClubNamesAndDetailByCategoryName(
+            final String categoryName,
+            final Long clubId
+    ) {
+        return clubDslRepository.findClubNamesAndDetailByCategoryName(categoryName, clubId);
     }
 
     @Override
-    public Optional<Club> findClubById(Long id) {
+    public Optional<Club> findClubById(final Long id) {
         return clubJpaRepository.findById(id);
     }
 
     @Override
-    public List<Club> findClubsCanUpdateStatus() {
-        return clubJpaRepository.findClubsCanUpdateStatus();
+    public List<Club> findClubsAll() {
+        return clubJpaRepository.findAll();
     }
 
     @Override
-    public Long save(Club club) {
+    public Long save(final Club club) {
         Club savedClub = clubJpaRepository.save(club);
         return savedClub.getId();
     }
 
     @Override
-    public void saveAll(List<Club> clubs) {
+    public void saveAll(final List<Club> clubs) {
         clubJpaRepository.saveAll(clubs);
     }
 }
