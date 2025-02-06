@@ -1,14 +1,11 @@
 package myongari.backend.club.domain;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -44,9 +41,8 @@ public class Club {
     @Embedded
     private President president;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "categories_id")
-    private Category category;
+    @Column(name = "category_id")
+    private Long categoryId;
 
     public void setImage(Image image) {
         this.image = image;

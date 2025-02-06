@@ -1,6 +1,6 @@
 package myongari.backend.club.infra;
 
-import static com.querydsl.core.group.GroupBy.list;
+import static com.querydsl.core.types.Projections.list;
 import static myongari.backend.club.domain.QCategory.category;
 import static myongari.backend.club.domain.QClub.club;
 
@@ -28,9 +28,10 @@ public class ClubDslRepository {
                         club.image,
                         club.apply.recruitmentStatus,
                         club.introduce,
-                        club.category.name
+                        category.name
                 ))
                 .from(club)
+                .join(category).on(club.categoryId.eq(category.id))
                 .fetch();
     }
 
@@ -47,23 +48,23 @@ public class ClubDslRepository {
                         Projections.constructor(Club.class, club)
                 ))
                 .from(club)
-                .join(category).on(club.category.eq(category))
+                .join(category).on(club.categoryId.eq(category.id))
                 .where(
-                        categoryNameEquals(categoryName),
-                        clubIdEquals(clubId)
+                        conditionCategoryNameEquals(categoryName),
+                        conditionClubIdEquals(clubId)
                 )
                 .orderBy(club.apply.recruitmentStatus.asc(), club.name.asc())
                 .fetchOne();
     }
 
-    private BooleanExpression categoryNameEquals(String categoryName) {
+    private BooleanExpression conditionCategoryNameEquals(String categoryName) {
         if (categoryName == null) {
             throw new IllegalArgumentException("카테고리를 찾지 못했습니다.");
         }
         return category.name.eq(categoryName);
     }
 
-    private BooleanExpression clubIdEquals(Long clubId) {
+    private BooleanExpression conditionClubIdEquals(Long clubId) {
         return clubId != null ? club.id.eq(clubId) : null;
     }
 }
