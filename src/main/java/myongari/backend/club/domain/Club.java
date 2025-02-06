@@ -41,7 +41,7 @@ public class Club {
     @Embedded
     private President president;
 
-    @Column(name = "category_id")
+    @Column(name = "categories_id")
     private Long categoryId;
 
     public void setImage(Image image) {

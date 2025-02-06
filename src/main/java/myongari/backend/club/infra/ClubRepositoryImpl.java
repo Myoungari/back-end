@@ -37,4 +37,9 @@ public class ClubRepositoryImpl implements ClubRepository {
     public void saveAll(final List<Club> clubs) {
         clubJpaRepository.saveAll(clubs);
     }
+
+    @Override
+    public void save(final Club club) {
+        clubJpaRepository.save(club);
+    }
 }

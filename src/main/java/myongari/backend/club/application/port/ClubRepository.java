@@ -12,4 +12,5 @@ public interface ClubRepository {
     List<Club> findClubsAll();
 
     void saveAll(List<Club> clubs);
+    void save(Club club);
 }
