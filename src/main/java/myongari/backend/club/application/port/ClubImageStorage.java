@@ -1,9 +1,7 @@
 package myongari.backend.club.application.port;
 
-import java.util.UUID;
-import myongari.backend.club.domain.Image;
-
 public interface ClubImageStorage {
 
-    Image downloadImage(UUID uuid);
+    String getPresignedUrl(String key);
+    String putImage(String key, byte[] image);
 }

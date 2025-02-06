@@ -8,12 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum State {
 
-    Pending("Recruiting"),
-    Recruiting("Recruiting"),
-    Recruited("Recruited"),
-    ClosedEarly("Recruited"),
-    Cancelled("Recruited"),
-    Unplanned("Recruited");
+    RECRUITING("Recruiting"),
+    RECRUITED("Recruited");
 
     @JsonValue
     private final String msg;

@@ -35,40 +35,23 @@ public class Apply {
     public void updateRecruitmentStatusFromRecruitDate(DateHolder dateHolder) {
         LocalDate now = dateHolder.getDate();
 
-        if (!canUpdateRecruitmentStatus()) {
-            return;
-        }
-
-        if (isPending(now)) {
-            recruitmentStatus = State.Pending;
-        }
-
         if (isRecruiting(now)) {
-            recruitmentStatus = State.Recruiting;
+            recruitmentStatus = State.RECRUITING;
         }
 
         if (isRecruited(now)) {
-            recruitmentStatus = State.Recruited;
+            recruitmentStatus = State.RECRUITED;
         }
     }
 
-    private boolean canUpdateRecruitmentStatus() {
-        return recruitmentStatus == State.Pending
-                || recruitmentStatus == State.Recruiting
-                || recruitmentStatus == State.Recruited;
-    }
-
-    private boolean isPending(LocalDate now) {
-        return now.isBefore(recruitStartDate);
-    }
-
     private boolean isRecruiting(LocalDate now) {
-        return now.isEqual(recruitStartDate) ||
-                (now.isAfter(recruitStartDate) && now.isBefore(recruitEndDate))
+        return now.isEqual(recruitStartDate)
+                || (now.isAfter(recruitStartDate) && now.isBefore(recruitEndDate))
                 || now.isEqual(recruitEndDate);
     }
 
     private boolean isRecruited(LocalDate now) {
-        return now.isAfter(recruitEndDate);
+        return now.isBefore(recruitStartDate)
+                || now.isAfter(recruitEndDate);
     }
 }

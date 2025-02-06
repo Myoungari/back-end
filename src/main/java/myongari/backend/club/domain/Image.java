@@ -21,6 +21,9 @@ public class Image {
     @JsonIgnore
     @Column(name = "image_uuid", columnDefinition = "BINARY(16)")
     private UUID uuid;
+    @JsonIgnore
+    @Column(name = "image_extension")
+    private String extension;
     @Transient
     private String imageLink;
 }

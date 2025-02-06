@@ -24,17 +24,51 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.0'
-	compileOnly 'org.projectlombok:lombok'
+
+	// jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+	// database
 	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'com.mysql:mysql-connector-j'
+	implementation 'org.xerial:sqlite-jdbc:3.46.1.3'
+	implementation 'org.hibernate.orm:hibernate-community-dialects'
+	//runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// aws s3
+	implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.0'
+
+	// swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+	// lombok
 	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'
+
+	// test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+def generatedDir =  "src/main/generated"
+
+tasks.withType(JavaCompile) {
+	options.generatedSourceOutputDirectory = file(generatedDir)
+}
+
+sourceSets {
+	main.java.srcDirs += "$projectDir/build/generated"
+}
+
+clean {
+	delete file(generatedDir)
 }

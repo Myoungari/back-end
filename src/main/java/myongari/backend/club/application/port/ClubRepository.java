@@ -1,25 +1,16 @@
 package myongari.backend.club.application.port;
 
-import myongari.backend.club.domain.Club;
-import myongari.backend.club.presentation.dto.ClubName;
-import myongari.backend.club.presentation.dto.ClubSimple;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import java.util.List;
-import java.util.Optional;
+import myongari.backend.club.domain.Club;
+import myongari.backend.club.dto.ClubNamesAndDetail;
+import myongari.backend.club.dto.ClubSummary;
 
 public interface ClubRepository {
 
-    Page<ClubSimple> findClubSimpleAll(Pageable pageable);
-
-    List<ClubName> findClubNamesByCategoryName(String categoryName);
-
-    Optional<Club> findClubById(Long id);
-
-    List<Club> findClubsCanUpdateStatus();
-
-    Long save(Club club);
+    List<ClubSummary> findClubSummaryAll();
+    ClubNamesAndDetail findClubNamesAndDetailByCategoryName(String categoryName, Long clubId);
+    List<Club> findClubsAll();
 
     void saveAll(List<Club> clubs);
+    void save(Club club);
 }

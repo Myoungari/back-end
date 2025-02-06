@@ -1,13 +1,12 @@
 package myongari.backend.club.infra;
 
 import io.awspring.cloud.s3.S3Operations;
-import java.net.URL;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.time.Duration;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.application.port.ClubImageStorage;
-import myongari.backend.club.domain.Image;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -16,22 +15,24 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ClubImageAwsStorage implements ClubImageStorage {
 
+    private final S3Operations s3Operations;
+
     @Value("${spring.cloud.aws.s3.bucket:null}")
     private String bucketName;
 
-    private final S3Operations s3Operations;
+    @Override
+    public String getPresignedUrl(String key) {
+        return s3Operations.createSignedGetURL(bucketName, key, Duration.ofMinutes(5)).toString();
+    }
 
     @Override
-    public Image downloadImage(UUID uuid) {
-        String key = "image/" + uuid + ".png";
-
-        URL signedGetURL = s3Operations.createSignedGetURL(bucketName, key, Duration.ofMinutes(5));
-        log.info("Presigned URL: [{}]", signedGetURL);
-
-        return Image.builder()
-                .uuid(uuid)
-                .imageLink(signedGetURL.toString())
-                .build();
+    public String putImage(final String key, final byte[] image) {
+        try (InputStream inputStream = new ByteArrayInputStream(image)) {
+            s3Operations.upload(bucketName, key, inputStream);
+            return key;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to upload image to S3", e);
+        }
     }
 }
 
