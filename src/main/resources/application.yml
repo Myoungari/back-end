@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: myongari-backend
-  profiles:
-    active: dev
