@@ -1,10 +1,11 @@
 package myongari.backend.club.infra;
 
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
-import myongari.backend.club.dto.ClubNamesAndDetail;
+import myongari.backend.club.dto.ClubName;
 import myongari.backend.club.dto.ClubSummary;
 import org.springframework.stereotype.Component;
 
@@ -21,11 +22,13 @@ public class ClubRepositoryImpl implements ClubRepository {
     }
 
     @Override
-    public ClubNamesAndDetail findClubNamesAndDetailByCategoryName(
-            final String categoryName,
-            final Long clubId
-    ) {
-        return clubDslRepository.findClubNamesAndDetailByCategoryName(categoryName, clubId);
+    public List<ClubName> findClubNameAll(final String categoryName) {
+        return clubDslRepository.findClubNameAll(categoryName);
+    }
+
+    @Override
+    public Optional<Club> findClubById(final Long clubId) {
+        return clubJpaRepository.findById(clubId);
     }
 
     @Override

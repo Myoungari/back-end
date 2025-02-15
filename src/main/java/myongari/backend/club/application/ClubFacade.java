@@ -39,7 +39,9 @@ public class ClubFacade {
             Long clubId
     ) {
         ClubNamesAndDetail clubNamesAndDetail = clubService.findClubNamesAndDetailByCategoryName(categoryName, clubId);
-
+        if (clubNamesAndDetail == null) {
+            return null;
+        }
         Image image = clubNamesAndDetail.getClub().getImage();
         if (image != null) {
             Image downloaded = clubImageService.getImage(image);

@@ -29,6 +29,9 @@ public class ClubImageService {
     }
 
     public Image saveImage(final MultipartFile image) {
+        if (image == null) {
+            return null;
+        }
         String extension = parseExtension(image);
 
         UUID uuid = UUID.randomUUID();
