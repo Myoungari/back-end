@@ -33,9 +33,6 @@ public class Club {
     private String activity;
 
     @Embedded
-    private Image image;
-
-    @Embedded
     private Apply apply;
 
     @Embedded
@@ -43,8 +40,4 @@ public class Club {
 
     @Column(name = "categories_id")
     private Long categoryId;
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
 }

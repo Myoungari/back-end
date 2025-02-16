@@ -45,6 +45,7 @@ public interface ClubSwagger {
                         name = "clubRegisterRequest", contentType = MediaType.APPLICATION_JSON_VALUE)))
     ResponseEntity<Void> saveClub(
             ClubRegisterRequest clubRegisterRequest,
-            MultipartFile image
+            MultipartFile thumbnail,
+            List<MultipartFile> images
     );
 }

@@ -3,7 +3,6 @@ package myongari.backend.club.dto;
 import java.time.LocalDate;
 import myongari.backend.club.domain.Apply;
 import myongari.backend.club.domain.Club;
-import myongari.backend.club.domain.Image;
 import myongari.backend.club.domain.President;
 import myongari.backend.club.domain.State;
 
@@ -28,14 +27,13 @@ public record ClubRegisterRequest(
         long categoryId
 ) {
 
-    public Club toEntity(Image image) {
+    public Club toEntity() {
         return Club.builder()
                 .name(name)
                 .location(location)
                 .snsLink(snsLink)
                 .introduce(introduce)
                 .activity(activity)
-                .image(image)
                 .apply(Apply.builder().
                         recruitmentStatus(recruitmentStatus)
                         .applyLink(applyLink)

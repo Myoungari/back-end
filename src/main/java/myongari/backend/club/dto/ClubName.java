@@ -9,6 +9,6 @@ import myongari.backend.club.domain.State;
 public class ClubName {
 
     private long id;
-    private String clubName;
+    private String name;
     private State recruitmentStatus;
 }

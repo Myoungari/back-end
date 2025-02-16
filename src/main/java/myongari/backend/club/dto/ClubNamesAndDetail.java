@@ -4,7 +4,6 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import myongari.backend.club.domain.Club;
 
 @Getter
 @AllArgsConstructor
@@ -12,5 +11,5 @@ import myongari.backend.club.domain.Club;
 public class ClubNamesAndDetail {
 
     private List<ClubName> clubNames;
-    private Club club;
+    private ClubDetail clubDetail;
 }

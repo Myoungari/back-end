@@ -5,6 +5,9 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
+import myongari.backend.club.domain.Image;
+import myongari.backend.club.domain.ImageType;
+import myongari.backend.club.dto.ClubDetail;
 import myongari.backend.club.dto.ClubName;
 import myongari.backend.club.dto.ClubSummary;
 import org.springframework.stereotype.Component;
@@ -15,6 +18,7 @@ public class ClubRepositoryImpl implements ClubRepository {
 
     private final ClubJpaRepository clubJpaRepository;
     private final ClubDslRepository clubDslRepository;
+    private final ClubImageJpaRepository clubImageJpaRepository;
 
     @Override
     public List<ClubSummary> findClubSummaryAll() {
@@ -27,8 +31,8 @@ public class ClubRepositoryImpl implements ClubRepository {
     }
 
     @Override
-    public Optional<Club> findClubById(final Long clubId) {
-        return clubJpaRepository.findById(clubId);
+    public Optional<ClubDetail> findClubDetailById(final Long clubId) {
+        return clubDslRepository.findClubDetailById(clubId);
     }
 
     @Override
@@ -37,12 +41,25 @@ public class ClubRepositoryImpl implements ClubRepository {
     }
 
     @Override
+    public List<Image> findImage(
+            final Long clubId,
+            final ImageType imageType
+    ) {
+        return clubImageJpaRepository.findByClubIdAndImageType(clubId, imageType);
+    }
+
+    @Override
     public void saveAll(final List<Club> clubs) {
         clubJpaRepository.saveAll(clubs);
     }
 
     @Override
-    public void save(final Club club) {
-        clubJpaRepository.save(club);
+    public Club save(final Club club) {
+        return clubJpaRepository.save(club);
+    }
+
+    @Override
+    public void saveImage(final Image image) {
+        clubImageJpaRepository.save(image);
     }
 }

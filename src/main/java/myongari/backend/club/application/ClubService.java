@@ -6,7 +6,7 @@ import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
-import myongari.backend.club.domain.Image;
+import myongari.backend.club.dto.ClubDetail;
 import myongari.backend.club.dto.ClubName;
 import myongari.backend.club.dto.ClubNamesAndDetail;
 import myongari.backend.club.dto.ClubRegisterRequest;
@@ -32,21 +32,20 @@ public class ClubService {
             return null;
         }
 
-        Club club;
-        club = clubRepository.findClubById(Objects.requireNonNullElseGet(clubId, () -> clubNames.get(0).getId()))
+        ClubDetail clubDetail = clubRepository.findClubDetailById(
+                        Objects.requireNonNullElseGet(clubId, () -> clubNames.get(0).getId()))
                 .orElseThrow(() -> new NoSuchElementException("동아리를 찾을 수 없습니다."));
 
         return ClubNamesAndDetail.builder()
                 .clubNames(clubNames)
-                .club(club)
+                .clubDetail(clubDetail)
                 .build();
     }
 
-    public void saveClub(
-            final ClubRegisterRequest clubRegisterRequest,
-            final Image image
+    public Club saveClub(
+            final ClubRegisterRequest clubRegisterRequest
     ) {
-        Club club = clubRegisterRequest.toEntity(image);
-        clubRepository.save(club);
+        Club club = clubRegisterRequest.toEntity();
+        return clubRepository.save(club);
     }
 }
