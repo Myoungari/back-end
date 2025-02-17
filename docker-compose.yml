@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  springboot:
+    container_name: springboot
+    image: "${DOCKERHUB_USERNAME}/${APP_NAME}:latest"
+    ports:
+      - "8080:8080"
+    networks:
+      - myoungari
+
+networks:
+  myoungari:
