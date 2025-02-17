@@ -53,9 +53,10 @@ public class ClubController implements ClubSwagger {
     @PostMapping(value = "/clubs", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> saveClub(
             @RequestPart(value = "clubRegisterRequest") ClubRegisterRequest clubRegisterRequest,
-            @RequestPart(value = "image", required = false) MultipartFile image
+            @RequestPart(value = "thumbnail", required = false) MultipartFile thumbnail,
+            @RequestPart(value = "images", required = false) List<MultipartFile> images
     ) {
-        clubFacade.saveClub(clubRegisterRequest, image);
+        clubFacade.saveClub(clubRegisterRequest, thumbnail, images);
         return ResponseEntity.status(201).build();
     }
 }

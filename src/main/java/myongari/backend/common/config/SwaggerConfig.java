@@ -12,11 +12,14 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI openAPI() {
-        Server server = new Server();
-        server.setUrl("http://localhost:8080");
+        Server local = new Server();
+        local.setUrl("http://localhost:8080");
+
+        Server prod = new Server();
+        prod.setUrl("https://api.myoungari.com");
 
         return new OpenAPI()
                 .info(new Info().title("Myoungari API"))
-                .servers(List.of());
+                .servers(List.of(local, prod));
     }
 }

@@ -1,10 +1,15 @@
 package myongari.backend.club.application;
 
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.application.port.ClubImageStorage;
+import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Image;
+import myongari.backend.club.domain.ImageType;
+import myongari.backend.club.dto.ClubDetail;
+import myongari.backend.club.dto.ClubSummary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,21 +19,60 @@ import org.springframework.web.multipart.MultipartFile;
 public class ClubImageService {
 
     private final ClubImageStorage clubImageStorage;
+    private final ClubRepository clubRepository;
 
-    public Image getImage(Image image) {
+    public ClubDetail setThumbnailPresignedUrl(
+            final ClubDetail clubDetail
+    ) {
+        List<Image> images = clubRepository.findImage(clubDetail.getId(), ImageType.THUMBNAIL);
+        if (!images.isEmpty()) {
+            String presignedUrl = getPresignedUrl(images.get(0));
+            clubDetail.setThumbnailUrl(presignedUrl);
+        }
+        return clubDetail;
+    }
+
+    public ClubSummary setThumbnailPresignedUrl(
+            final ClubSummary clubSummary
+    ) {
+        List<Image> images = clubRepository.findImage(clubSummary.getId(), ImageType.THUMBNAIL);
+        if (!images.isEmpty()) {
+            String presignedUrl = getPresignedUrl(images.get(0));
+            clubSummary.setThumbnailUrl(presignedUrl);
+        }
+        return clubSummary;
+    }
+
+    public ClubDetail setImagePresignedUrls(
+            final ClubDetail clubDetail
+    ) {
+        List<Image> images = clubRepository.findImage(clubDetail.getId(), ImageType.NORMAL);
+        List<String> presignedUrls = images.stream()
+                .map(this::getPresignedUrl)
+                .toList();
+        clubDetail.setClubImageUrls(presignedUrls);
+        return clubDetail;
+    }
+
+    private String getPresignedUrl(final Image image) {
+        if (image == null) {
+            return null;
+        }
         UUID uuid = image.getUuid();
         String extension = image.getExtension();
         String key = "image/" + uuid + extension; // extension에 '.' 포함
 
-        String presignedUrl = clubImageStorage.getPresignedUrl(key);
-
-        return Image.builder()
-                .uuid(uuid)
-                .imageLink(presignedUrl)
-                .build();
+        return clubImageStorage.getPresignedUrl(key);
     }
 
-    public Image saveImage(final MultipartFile image) {
+    public void saveImage(
+            final Long clubId,
+            final ImageType imageType,
+            final MultipartFile image
+    ) {
+        if (image == null) {
+            return;
+        }
         String extension = parseExtension(image);
 
         UUID uuid = UUID.randomUUID();
@@ -43,11 +87,13 @@ public class ClubImageService {
 
         clubImageStorage.putImage(key, imageBytes);
 
-        return Image.builder()
+        Image savedImage = Image.builder()
                 .uuid(uuid)
                 .extension(extension)
-                .imageLink(key)
+                .imageType(imageType)
+                .clubId(clubId)
                 .build();
+        clubRepository.saveImage(savedImage);
     }
 
     private String parseExtension(MultipartFile image) {

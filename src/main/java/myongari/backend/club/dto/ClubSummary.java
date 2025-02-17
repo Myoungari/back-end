@@ -1,22 +1,19 @@
 package myongari.backend.club.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import myongari.backend.club.domain.Image;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import myongari.backend.club.domain.State;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ClubSummary {
 
-    private long id;
-    private String name;
-    private Image image;
-    private State recruitmentStatus;
-    private String introduce;
-    private String categoryName;
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
+    private final long id;
+    private final String name;
+    @Setter
+    private String thumbnailUrl;
+    private final State recruitmentStatus;
+    private final String introduce;
+    private final String categoryName;
 }

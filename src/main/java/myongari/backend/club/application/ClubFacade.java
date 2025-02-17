@@ -1,9 +1,11 @@
 package myongari.backend.club.application;
 
+import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import myongari.backend.club.domain.Image;
+import myongari.backend.club.domain.Club;
+import myongari.backend.club.domain.ImageType;
 import myongari.backend.club.dto.ClubNamesAndDetail;
 import myongari.backend.club.dto.ClubRegisterRequest;
 import myongari.backend.club.dto.ClubSummary;
@@ -21,16 +23,10 @@ public class ClubFacade {
 
     public List<ClubSummary> findClubSummaryAll() {
         List<ClubSummary> clubSummaryAll = clubService.findClubSummaryAll();
-
-        for (ClubSummary clubSummary : clubSummaryAll) {
-            Image image = clubSummary.getImage();
-            if (image == null) {
-                continue;
-            }
-            Image downloaded = clubImageService.getImage(image);
-            clubSummary.setImage(downloaded);
+        if (clubSummaryAll == null) {
+            return Collections.emptyList();
         }
-
+        clubSummaryAll.forEach(clubImageService::setThumbnailPresignedUrl);
         return clubSummaryAll;
     }
 
@@ -39,27 +35,31 @@ public class ClubFacade {
             Long clubId
     ) {
         ClubNamesAndDetail clubNamesAndDetail = clubService.findClubNamesAndDetailByCategoryName(categoryName, clubId);
-
-        Image image = clubNamesAndDetail.getClub().getImage();
-        if (image != null) {
-            Image downloaded = clubImageService.getImage(image);
-            clubNamesAndDetail.getClub().setImage(downloaded);
+        if (clubNamesAndDetail == null) {
+            return null;
         }
-
+        // set thumbnail image link
+        clubImageService.setThumbnailPresignedUrl(clubNamesAndDetail.getClubDetail());
+        // set normal image links
+        clubImageService.setImagePresignedUrls(clubNamesAndDetail.getClubDetail());
         return clubNamesAndDetail;
     }
 
     @Transactional
     public void saveClub(
             final ClubRegisterRequest clubRegisterRequest,
-            final MultipartFile image
+            final MultipartFile thumbnail,
+            final List<MultipartFile> images
     ) {
-        // save image to aws s3
-        Image savedImage = clubImageService.saveImage(image);
-        log.info("image saved successfully");
+        // save club
+        Club club = clubService.saveClub(clubRegisterRequest);
 
-        // save club to db
-        clubService.saveClub(clubRegisterRequest, savedImage);
-        log.info("club saved successfully");
+        // save thumbnail image
+        clubImageService.saveImage(club.getId(), ImageType.THUMBNAIL, thumbnail);
+        log.info("thumbnail saved successfully");
+        // save images
+        if (images != null) {
+            images.forEach(image -> clubImageService.saveImage(club.getId(), ImageType.NORMAL, image));
+        }
     }
 }
