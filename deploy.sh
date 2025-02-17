@@ -1,14 +1,21 @@
 #!/bin/bash
 cd /home/ubuntu
 
+# Ensure the script has necessary permissions to modify files
+sudo chmod 777 /home/ubuntu
+
 if [ -f "myoungari.db" ]; then
   echo "📂 Backing up the existing SQLite database..."
-  mv myoungari.db myoungari.db.bak
-  rm -f myoungari.db
+  sudo mv myoungari.db myoungari.db.bak
+  sudo rm -f myoungari.db
 fi
 
 echo "🚀 0. Applying the new SQLite database..."
-mv myoungari.new.db myoungari.db
+sudo mv myoungari.new.db myoungari.db
+
+# Set correct ownership and permissions
+sudo chown ubuntu:ubuntu myoungari.db
+sudo chmod 666 myoungari.db
 
 echo "1. Checking if the springboot container is running..."
 if [ "$(docker ps -q -f name=springboot)" ]; then
