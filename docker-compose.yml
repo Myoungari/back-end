@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /home/ubuntu/myoungari.db:/app/myoungari.db
+      - /home/ubuntu/:/app
     working_dir: /app
     networks:
       - myoungari
