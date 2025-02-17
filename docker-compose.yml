@@ -6,6 +6,9 @@ services:
     image: "${DOCKERHUB_USERNAME}/${APP_NAME}:latest"
     ports:
       - "8080:8080"
+    volumes:
+      - /home/ubuntu/myoungari.db:/app/myoungari.db
+    working_dir: /app
     networks:
       - myoungari
 

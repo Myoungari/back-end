@@ -1,4 +1,14 @@
 #!/bin/bash
+cd /home/ubuntu
+
+if [ -f "database.db" ]; then
+  echo "📂 Backing up the existing SQLite database..."
+  mv database.db database.db.bak
+  rm -f database.db
+fi
+
+echo "🚀 0. Applying the new SQLite database..."
+mv database.new.db database.db
 
 echo "1. Checking if the springboot container is running..."
 if [ "$(docker ps -q -f name=springboot)" ]; then

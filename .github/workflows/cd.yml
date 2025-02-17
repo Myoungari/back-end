@@ -94,6 +94,21 @@ jobs:
           source: "deploy.sh"
           target: "/home/ubuntu"
 
+      - name: Decode and Save SQLite Database
+        run: |
+          echo "${{ secrets.DATABASE_BASE64 }}" | base64 --decode > myoungari.db
+
+      - name: Send New SQLite Database (Overwrite)
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          source: "myoungari.db"
+          target: "/home/ubuntu/myoungari.new.db"
+          overwrite: true
+
       - name: Deploy at AWS EC2
         uses: appleboy/ssh-action@master
         with:
