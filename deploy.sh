@@ -25,21 +25,21 @@ cd /home/ubuntu
 echo "1. Checking if the springboot container is running..."
 if [ "$(docker ps -q -f name=springboot)" ]; then
   echo "Spring Boot container found. Stopping it..."
-  docker-compose stop springboot
+  docker compose stop springboot
 else
   echo "Spring Boot container is not running. Skipping stop step."
 fi
 
 if [ "$(docker ps -q -f name=nginx)" ]; then
   echo "Nginx container found. Stopping it..."
-  docker-compose stop nginx
+  docker compose stop nginx
 else
   echo "Nginx container is not running. Skipping stop step."
 fi
 
 echo "2. Starting the Spring Boot and Nginx container..."
 echo "current path: $(pwd)"
-docker-compose up -d springboot nginx
+docker compose up -d springboot nginx
 
 for cnt in {1..20}
 do
