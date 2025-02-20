@@ -12,7 +12,7 @@ if [ -f "myoungari.db" ]; then
 fi
 
 echo "🚀 0. Applying the new SQLite database..."
-sudo mv myoungari.new.db myoungari.db
+sudo mv myoungari-new.db myoungari.db
 
 # Set correct ownership and permissions
 sudo chown ubuntu:ubuntu myoungari.db
