@@ -2,9 +2,7 @@
 
 # Create directory with proper permissions
 cd /home/ubuntu || exit 1
-
 sudo mkdir -p /database
-sudo chown -R ubuntu:ubuntu /database
 cd ./database
 
 if [ -f "myoungari.db" ]; then
@@ -17,8 +15,6 @@ echo "🚀 0. Applying the new SQLite database..."
 sudo cp myoungari-new.db myoungari.db
 sudo rm -f myoungari-new.db
 
-# Set correct ownership and permissions
-sudo chown ubuntu:ubuntu myoungari.db
 sudo chmod 666 myoungari.db
 
 cd /home/ubuntu
