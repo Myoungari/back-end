@@ -11,6 +11,7 @@ import myongari.backend.club.domain.ImageType;
 import myongari.backend.club.dto.ClubDetail;
 import myongari.backend.club.dto.ClubSummary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
@@ -65,6 +66,7 @@ public class ClubImageService {
         return clubImageStorage.getPresignedUrl(key);
     }
 
+    @Transactional
     public void saveImage(
             final Long clubId,
             final ImageType imageType,
