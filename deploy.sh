@@ -6,17 +6,16 @@ cd /home/ubuntu || exit 1
 sudo mkdir -p /database
 sudo chown -R ubuntu:ubuntu /database
 cd ./database
-echo "current path: $(pwd)"
-ls -l
 
 if [ -f "myoungari.db" ]; then
   echo "📂 Backing up the existing SQLite database..."
-  sudo mv myoungari.db myoungari.db.bak
+  sudo cp myoungari.db myoungari.db.bak
   sudo rm -f myoungari.db
 fi
 
 echo "🚀 0. Applying the new SQLite database..."
-sudo mv myoungari-new.db myoungari.db
+sudo cp myoungari-new.db myoungari.db
+sudo rm -f myoungari-new.db
 
 # Set correct ownership and permissions
 sudo chown ubuntu:ubuntu myoungari.db
