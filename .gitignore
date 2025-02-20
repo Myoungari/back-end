@@ -10,6 +10,10 @@ src/main/generated/
 
 ### sqlite ###
 *.db
+*.db.base64
+
+### nginx config ###
+nginx.conf
 
 ### setting ###
 src/main/resources/application.yml

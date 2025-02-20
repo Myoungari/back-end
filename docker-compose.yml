@@ -1,13 +1,30 @@
 version: '3'
 
 services:
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    depends_on:
+      - springboot
+    networks:
+      - myoungari
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
   springboot:
     container_name: springboot
     image: "${DOCKERHUB_USERNAME}/${APP_NAME}:latest"
     ports:
       - "8080:8080"
     volumes:
-      - /home/ubuntu/myoungari.db:/app/myoungari.db:rw
+      - ./database/myoungari.db:/app/myoungari.db:rw
     working_dir: /app
     networks:
       - myoungari

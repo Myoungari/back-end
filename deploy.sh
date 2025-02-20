@@ -1,8 +1,9 @@
 #!/bin/bash
-cd /home/ubuntu
 
-# Ensure the script has necessary permissions to modify files
-sudo chmod 777 /home/ubuntu
+# Create directory with proper permissions
+sudo mkdir -p /database
+sudo chown -R ubuntu:ubuntu /database
+cd /database
 
 if [ -f "myoungari.db" ]; then
   echo "📂 Backing up the existing SQLite database..."
@@ -17,6 +18,8 @@ sudo mv myoungari.new.db myoungari.db
 sudo chown ubuntu:ubuntu myoungari.db
 sudo chmod 666 myoungari.db
 
+cd ..
+
 echo "1. Checking if the springboot container is running..."
 if [ "$(docker ps -q -f name=springboot)" ]; then
   echo "Spring Boot container found. Stopping it..."
@@ -25,15 +28,19 @@ else
   echo "Spring Boot container is not running. Skipping stop step."
 fi
 
-echo "2. Pulling the latest Spring Boot image..."
-docker-compose pull springboot
+if [ "$(docker ps -q -f name=nginx)" ]; then
+  echo "Nginx container found. Stopping it..."
+  docker-compose stop nginx
+else
+  echo "Nginx container is not running. Skipping stop step."
+fi
 
-echo "3. Starting the Spring Boot container..."
-docker-compose up -d springboot
+echo "2. Starting the Spring Boot and Nginx container..."
+docker-compose up -d springboot nginx
 
 for cnt in {1..20}
 do
-  echo "4. Checking server health (${cnt}/20)..."
+  echo "3. Checking server health (${cnt}/20)..."
 
   REQUEST=$(curl http://127.0.0.1:8080)
   if [ -n "$REQUEST" ]; then
