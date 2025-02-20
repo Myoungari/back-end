@@ -19,8 +19,8 @@ jobs:
 
       - name: Create nginx.conf
         run: |
-          echo "${{ secrets.NGINX_CONF }}" | base64 --decode > nginx.conf
-          chmod 644 nginx.conf
+          mkdir -p nginx/conf.d
+          echo "${{ secrets.NGINX_CONF }}" | base64 --decode > nginx/conf.d/nginx.conf
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -85,7 +85,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: "nginx.conf"
+          source: "/nginx/conf.d/nginx.conf"
           target: "/home/ubuntu/nginx/conf.d"
 
       - name: Send docker-compose.yml
