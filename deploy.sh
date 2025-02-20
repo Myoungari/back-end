@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Create directory with proper permissions
-cd /home/ubuntu
+cd /home/ubuntu || exit 1
+
 sudo mkdir -p /database
 sudo chown -R ubuntu:ubuntu /database
 cd /database
@@ -19,7 +20,7 @@ sudo mv myoungari-new.db myoungari.db
 sudo chown ubuntu:ubuntu myoungari.db
 sudo chmod 666 myoungari.db
 
-cd ..
+cd /home/ubuntu
 
 echo "1. Checking if the springboot container is running..."
 if [ "$(docker ps -q -f name=springboot)" ]; then
