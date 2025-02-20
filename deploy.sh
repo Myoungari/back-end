@@ -6,6 +6,8 @@ cd /home/ubuntu || exit 1
 sudo mkdir -p /database
 sudo chown -R ubuntu:ubuntu /database
 cd /database
+echo "current path: $(pwd)"
+ls -l
 
 if [ -f "myoungari.db" ]; then
   echo "📂 Backing up the existing SQLite database..."
@@ -23,22 +25,23 @@ sudo chmod 666 myoungari.db
 cd /home/ubuntu
 
 echo "1. Checking if the springboot container is running..."
-if [ "$(docker ps -q -f name=springboot)" ]; then
-  echo "Spring Boot container found. Stopping it..."
+if [ "$(docker ps -a -q -f name=springboot)" ]; then
+  echo "Spring Boot container found. Stopping and Removing it..."
   docker compose stop springboot
+  docker compose rm -f springboot
 else
-  echo "Spring Boot container is not running. Skipping stop step."
+  echo "Spring Boot container not found. Skipping."
 fi
 
-if [ "$(docker ps -q -f name=nginx)" ]; then
-  echo "Nginx container found. Stopping it..."
+if [ "$(docker ps -a -q -f name=nginx)" ]; then
+  echo "Nginx container found. Stopping and Removing it..."
   docker compose stop nginx
+  docker compose rm -f nginx
 else
-  echo "Nginx container is not running. Skipping stop step."
+  echo "Nginx container is not running. Skipping."
 fi
 
 echo "2. Starting the Spring Boot and Nginx container..."
-echo "current path: $(pwd)"
 docker compose up -d springboot nginx
 
 for cnt in {1..20}
