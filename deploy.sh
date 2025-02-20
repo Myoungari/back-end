@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Create directory with proper permissions
+cd /home/ubuntu
 sudo mkdir -p /database
 sudo chown -R ubuntu:ubuntu /database
 cd /database
