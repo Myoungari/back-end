@@ -95,7 +95,7 @@ jobs:
 
       - name: Decode and Save SQLite Database
         run: |
-          echo "${{ secrets.DATABASE_BASE64 }}" | base64 --decode > myoungari.db
+          echo "${{ secrets.DATABASE_BASE64 }}" | base64 --decode > myoungari.new.db
 
       - name: Send New SQLite Database (Overwrite)
         uses: appleboy/scp-action@master
@@ -104,8 +104,8 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: "myoungari.db"
-          target: "/home/ubuntu/database/myoungari.new.db"
+          source: "myoungari.new.db"
+          target: "/home/ubuntu/database"
           overwrite: true
 
       - name: Deploy at AWS EC2
@@ -118,7 +118,7 @@ jobs:
           script: |
             sudo chmod 666 /var/run/docker.sock
             echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-            
+
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.APP_NAME }}:latest
             chmod 777 ./deploy.sh
             ./deploy.sh

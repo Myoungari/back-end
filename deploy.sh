@@ -36,6 +36,7 @@ else
 fi
 
 echo "2. Starting the Spring Boot and Nginx container..."
+echo "current path: $(pwd)"
 docker-compose up -d springboot nginx
 
 for cnt in {1..20}
