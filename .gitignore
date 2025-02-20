@@ -23,6 +23,7 @@ src/test/resources/application-test.yml
 
 ### .sql ###
 src/test/resources/sql/
+*.sql
 
 ### STS ###
 .apt_generated
