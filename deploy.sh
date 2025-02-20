@@ -5,7 +5,7 @@ cd /home/ubuntu || exit 1
 
 sudo mkdir -p /database
 sudo chown -R ubuntu:ubuntu /database
-cd /database
+cd ./database
 echo "current path: $(pwd)"
 ls -l
 
