@@ -38,11 +38,15 @@ public interface ClubSwagger {
             Long clubId
     );
 
-    @Operation(summary = "동아리 정보 저장 API", description = "")
-    @RequestBody(
-            content = @Content(
-                encoding = @Encoding(
-                        name = "clubRegisterRequest", contentType = MediaType.APPLICATION_JSON_VALUE)))
+    @Operation(summary = "동아리 정보 저장 API", description = "Multipart form data를 사용하여 동아리 정보와 이미지를 저장합니다.")
+    @RequestBody(content = {
+            @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
+                    encoding = {
+                            @Encoding(name = "clubRegisterRequest", contentType = MediaType.APPLICATION_JSON_VALUE),
+                            @Encoding(name = "thumbnail", contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE),
+                            @Encoding(name = "images", contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+                    })
+    })
     ResponseEntity<Void> saveClub(
             ClubRegisterRequest clubRegisterRequest,
             MultipartFile thumbnail,
