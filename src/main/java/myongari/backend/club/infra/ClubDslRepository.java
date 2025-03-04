@@ -41,7 +41,7 @@ public class ClubDslRepository {
                 .from(club)
                 .join(category).on(club.categoryId.eq(category.id))
                 .where(category.name.eq(categoryName))
-                .orderBy(club.apply.recruitmentStatus.asc(), club.name.asc())
+                .orderBy(club.apply.recruitmentStatus.desc(), club.name.asc())
                 .fetch();
     }
 
