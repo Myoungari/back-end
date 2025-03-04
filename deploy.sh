@@ -1,23 +1,6 @@
 #!/bin/bash
 
-# Create directory with proper permissions
 cd /home/ubuntu || exit 1
-sudo mkdir -p /database
-cd ./database
-
-if [ -f "myoungari.db" ]; then
-  echo "📂 Backing up the existing SQLite database..."
-  sudo cp myoungari.db myoungari.db.bak
-  sudo rm -f myoungari.db
-fi
-
-echo "🚀 0. Applying the new SQLite database..."
-sudo cp myoungari-new.db myoungari.db
-sudo rm -f myoungari-new.db
-
-sudo chmod 666 myoungari.db
-
-cd /home/ubuntu
 
 echo "1. Checking if the springboot container is running..."
 if [ "$(docker ps -a -q -f name=springboot)" ]; then
