@@ -6,6 +6,7 @@ import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.port.ClubRepository;
 import myongari.backend.club.domain.Club;
+import myongari.backend.club.dto.ClubCount;
 import myongari.backend.club.dto.ClubDetail;
 import myongari.backend.club.dto.ClubName;
 import myongari.backend.club.dto.ClubNamesAndDetail;
@@ -18,6 +19,12 @@ import org.springframework.stereotype.Service;
 public class ClubService {
 
     private final ClubRepository clubRepository;
+
+    public ClubCount getClubCount() {
+        return ClubCount.builder()
+                .count(clubRepository.findClubCount())
+                .build();
+    }
 
     public List<ClubSummary> findClubSummaryAll() {
         return clubRepository.findClubSummaryAll();

@@ -21,6 +21,11 @@ public class ClubRepositoryImpl implements ClubRepository {
     private final ClubImageJpaRepository clubImageJpaRepository;
 
     @Override
+    public Long findClubCount() {
+        return clubJpaRepository.count();
+    }
+
+    @Override
     public List<ClubSummary> findClubSummaryAll() {
         return clubDslRepository.findClubSummaryAll();
     }

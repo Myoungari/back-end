@@ -11,6 +11,7 @@ import myongari.backend.club.dto.ClubSummary;
 
 public interface ClubRepository {
 
+    Long findClubCount();
     List<ClubSummary> findClubSummaryAll();
     List<ClubName> findClubNameAll(String categoryName);
     Optional<ClubDetail> findClubDetailById(Long clubId);

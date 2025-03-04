@@ -3,6 +3,7 @@ package myongari.backend.club.presentation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import myongari.backend.club.application.ClubFacade;
+import myongari.backend.club.dto.ClubCount;
 import myongari.backend.club.dto.ClubNamesAndDetail;
 import myongari.backend.club.dto.ClubRegisterRequest;
 import myongari.backend.club.dto.ClubSummary;
@@ -23,6 +24,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class ClubController implements ClubSwagger {
 
     private final ClubFacade clubFacade;
+
+    @GetMapping("/clubs/count")
+    public ResponseEntity<ClubCount> getClubCount() {
+        return ResponseEntity.status(200)
+                .body(clubFacade.getClubCount());
+    }
 
     @GetMapping("/clubs")
     public ResponseEntity<Success<List<ClubSummary>>> getClubSummaryAll() {

@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Encoding;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
+import myongari.backend.club.dto.ClubCount;
 import myongari.backend.club.dto.ClubNamesAndDetail;
 import myongari.backend.club.dto.ClubRegisterRequest;
 import myongari.backend.club.dto.ClubSummary;
@@ -16,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "동아리 조회 API")
 public interface ClubSwagger {
+
+    @Operation(summary = "동아리 갯수 조회 API", description = "")
+    ResponseEntity<ClubCount> getClubCount();
 
     @Operation(summary = "동아리 페이지 조회 API", description = "")
     ResponseEntity<Success<List<ClubSummary>>> getClubSummaryAll();

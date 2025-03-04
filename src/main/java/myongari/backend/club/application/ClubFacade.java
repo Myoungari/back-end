@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myongari.backend.club.domain.Club;
 import myongari.backend.club.domain.ImageType;
+import myongari.backend.club.dto.ClubCount;
 import myongari.backend.club.dto.ClubNamesAndDetail;
 import myongari.backend.club.dto.ClubRegisterRequest;
 import myongari.backend.club.dto.ClubSummary;
@@ -20,6 +21,10 @@ public class ClubFacade {
 
     private final ClubService clubService;
     private final ClubImageService clubImageService;
+
+    public ClubCount getClubCount() {
+        return clubService.getClubCount();
+    }
 
     public List<ClubSummary> findClubSummaryAll() {
         List<ClubSummary> clubSummaryAll = clubService.findClubSummaryAll();
