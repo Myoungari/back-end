@@ -36,7 +36,10 @@ public class ClubService {
     ) {
         List<ClubName> clubNames = clubRepository.findClubNameAll(categoryName);
         if (clubNames.isEmpty()) {
-            return null;
+            return ClubNamesAndDetail.builder()
+                    .clubNames(null)
+                    .clubDetail(null)
+                    .build();
         }
 
         ClubDetail clubDetail = clubRepository.findClubDetailById(

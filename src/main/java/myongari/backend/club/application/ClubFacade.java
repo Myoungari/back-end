@@ -40,8 +40,8 @@ public class ClubFacade {
             Long clubId
     ) {
         ClubNamesAndDetail clubNamesAndDetail = clubService.findClubNamesAndDetailByCategoryName(categoryName, clubId);
-        if (clubNamesAndDetail == null) {
-            return null;
+        if (clubNamesAndDetail.getClubNames() == null) {
+            return clubNamesAndDetail;
         }
         // set thumbnail image link
         clubImageService.setThumbnailPresignedUrl(clubNamesAndDetail.getClubDetail());
