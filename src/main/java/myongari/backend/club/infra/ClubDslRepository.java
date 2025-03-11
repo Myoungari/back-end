@@ -55,6 +55,7 @@ public class ClubDslRepository {
                         club.activity,
                         club.apply.recruitmentStatus,
                         club.apply.applyLink,
+                        club.apply.recruitmentMethod,
                         club.apply.recruitStartDate,
                         club.apply.recruitEndDate,
                         club.apply.qualifications,

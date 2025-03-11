@@ -20,6 +20,7 @@ public class ClubDetail {
     // apply
     private final State recruitmentStatus;
     private final String applyLink;
+    private final String recruitmentMethod;
     private final LocalDate recruitStartDate;
     private final LocalDate recruitEndDate;
     private final String qualifications;

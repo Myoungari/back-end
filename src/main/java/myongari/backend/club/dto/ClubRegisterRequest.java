@@ -16,6 +16,7 @@ public record ClubRegisterRequest(
         // apply
         State recruitmentStatus,
         String applyLink,
+        String recruitmentMethod,
         LocalDate recruitStartDate,
         LocalDate recruitEndDate,
         String qualifications,
@@ -37,6 +38,7 @@ public record ClubRegisterRequest(
                 .apply(Apply.builder().
                         recruitmentStatus(recruitmentStatus)
                         .applyLink(applyLink)
+                        .recruitmentMethod(recruitmentMethod)
                         .recruitStartDate(recruitStartDate)
                         .recruitEndDate(recruitEndDate)
                         .qualifications(qualifications)

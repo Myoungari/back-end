@@ -26,6 +26,8 @@ public class Apply {
     private State recruitmentStatus;
     @Column(name = "apply_link")
     private String applyLink;
+    @Column(name = "recruitment_method")
+    private String recruitmentMethod;
     @Column(name = "recruit_start_date")
     private LocalDate recruitStartDate;
     @Column(name = "recruit_end_date")
