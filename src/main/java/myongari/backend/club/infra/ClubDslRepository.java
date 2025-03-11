@@ -29,6 +29,7 @@ public class ClubDslRepository {
                 ))
                 .from(club)
                 .join(category).on(club.categoryId.eq(category.id))
+                .orderBy(club.apply.recruitmentStatus.desc(), club.name.asc())
                 .fetch();
     }
 
